@@ -9,13 +9,13 @@ import NavHeader from "../components/userProfile/navHeader/NavHeader";
 function Profile() {
   const actionItems = [
     { icon: "/Icons/User.png", text: "Enter Your Name" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/d73f33e8-981e-4173-831f-3c0b6cdb32ad?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Enter Your Mobile Number" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/c5900356-bfb4-41d7-94a1-88b12708c1d7?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Bookmarks" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/a875fb44-c1e6-46e5-a8bb-3edaa6ab1268?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Invite Friends" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/e765a32b-875c-4743-92c3-0602f9571bbe?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Delete Account", className: "text-red-500 text-xs" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/ec01aad9-8306-4616-a4cb-7defba736800?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Badges" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/93d126b7-9716-48a8-b7f8-165dc5c9b723?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Coin History" },
-    { icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/0e560c36-d0c4-4f35-b52f-cbc144d93d0e?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345", text: "Share App" }
+    { icon: "/Icons/flowbite_mobile-phone-solid.png", text: "Enter Your Mobile Number" },
+    { icon: "/Icons/ic_baseline-bookmark.png", text: "Bookmarks" },
+    { icon: "/Icons/maki_arrow.svg", text: "Invite Friends" },
+    { icon: "/Icons/material-symbols_delete.png", text: "Delete Account", className: "text-red-500 text-xs" },
+    { icon:"/Icons/streamline_star-badge-solid (1).png", text: "Badges" },
+    { icon: "", text: "Coin History" },
+    { icon: "", text: "Share App" }
   ];
 
   return (
@@ -50,7 +50,7 @@ function Profile() {
           </div>
         </div>
         
-        {/* Align Coin History and Share App to the left */}
+        
         <div className="flex flex-wrap gap-9 mt-6 text-sm text-cyan-950 justify-start w-[69%]">
           {actionItems.slice(6).map((item, index) => (
             <ActionItem key={index} icon={item.icon} text={item.text} />

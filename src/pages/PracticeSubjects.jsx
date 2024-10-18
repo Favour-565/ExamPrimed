@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SubjectCard from "../components/subject/SubjectCard";
+
 import SubjectBackButton from "../components/subject/SubjectBackButton";
+import SubjectCard from "../components/Subject/SubjectCard";
 
 function PracticeSubjects() {
   const [subjects] = useState([
@@ -22,7 +23,7 @@ function PracticeSubjects() {
   const navigate = useNavigate();
 
   const handleSubjectClick = (subject) => {
-    // You can pass subject data as state if needed in the daily-test page
+    
     navigate(subject.path, { 
       state: { 
         subjectName: subject.name,
@@ -64,7 +65,7 @@ function PracticeSubjects() {
           </div>
           <div className="flex relative flex-wrap gap-3 self-start mt-20 text-xs font-bold text-zinc-50 max-md:mt-10">
             {subjects.map((subject) => (
-              <SubjectCard 
+              <SubjectCard
                 key={subject.id}
                 name={subject.name} 
                 image={subject.image}

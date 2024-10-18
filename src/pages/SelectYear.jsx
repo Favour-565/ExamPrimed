@@ -4,7 +4,7 @@ import YearSelector from "../components/YearSelector";
 import StartButton from "../components/StartButton";
 
 function SelectYear() {
-  const [selectedYear, setSelectedYear] = useState(""); // Lift selectedYear state here
+  const [selectedYear, setSelectedYear] = useState("");
 
   return (
     <div className="flex overflow-hidden relative flex-col min-h-[821px]">
@@ -37,10 +37,10 @@ function SelectYear() {
             </div>
             <YearButton text="Back" />
           </div>
-          <YearSelector selectedYear={selectedYear} setSelectedYear={setSelectedYear} /> {/* Pass state down */}
+          <YearSelector selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
           <StartButton
             text="Start"
-            selectedYear={selectedYear} // Pass selectedYear to StartButton
+            selectedYear={selectedYear} 
             className="px-14 py-3.5 mt-12 mr-6 text-base font-medium text-white whitespace-nowrap shadow-sm rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
           />
         </section>

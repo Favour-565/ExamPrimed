@@ -1,14 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
-import SubjectCard from "../components/subject/SubjectCard";
+import { Link } from "react-router-dom"; 
+
 import SubjectBackButton from "../components/subject/SubjectBackButton";
+import SubjectCard from "../components/Subject/SubjectCard";
 
 const subjects = [
-  { name: "ENGLISH", image: "https://cdn.builder.io/api/v1/image/assets/TEMP/59030c2bf2708c5fa048d49eeeeaaf40eb744c6ffd9f379e449ce78027d18cce?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345" },
-  { name: "GENERAL KNOWLEDGE", image: "https://cdn.builder.io/api/v1/image/assets/TEMP/512dbc97e2549aece4fafb33af5835a26c609a6d4a133a008bd3a5c8bbf7d17e?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345" },
-  { name: "ACCOUNT", image: "https://cdn.builder.io/api/v1/image/assets/TEMP/742cdbf66a7b93c8d59721880d68ca4e914beef2ae5e3c3bcb4f57e89d25f02e?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345" },
-  { name: "COMMERCE", image: "https://cdn.builder.io/api/v1/image/assets/TEMP/8b56de51c1414f401c238a49c62d3eba4f60fa6b3d430f59ff8221d4b7520c9d?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345" },
-  { name: "SCIENCE", image: "https://cdn.builder.io/api/v1/image/assets/TEMP/ce7c14703f700db591194524c142aa901f283c6d4947121a487e720bb44c0291?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345" }
+  { name: "ENGLISH", image: "/images/English.png" },
+  { name: "GENERAL KNOWLEDGE", image: "/images/Knowledge.png" },
+  { name: "ACCOUNT", image: "/images/account.png" },
+  { name: "COMMERCE", image: "/images/commerce.png" },
+  { name: "SCIENCE", image: "/images/Science.png" }
 ];
 
 function SubjectSelection() {

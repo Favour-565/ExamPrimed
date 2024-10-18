@@ -32,10 +32,7 @@ const QuestionCard = ({ onQuizComplete }) => {
     }
   };
 
-  // const handleSubmit = () => {
-    
-  //   navigate('/award'); 
-  // };
+ 
   const handleSubmit = () => {
     const correctAnswers = selectedAnswers.filter((answer, index) => answer === questions[index].correctAnswer);
     const quizResults = {
@@ -45,7 +42,7 @@ const QuestionCard = ({ onQuizComplete }) => {
       scoreAccuracy: Math.round((correctAnswers.length / questions.length) * 100)
     };
     
-    // Navigate to the award page and pass the quiz results as state
+   
     navigate('/award', { state: { quizResults } });
   };
   

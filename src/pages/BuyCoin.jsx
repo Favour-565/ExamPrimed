@@ -18,28 +18,27 @@ function BuyCoinsPage() {
   const [user, setUser] = useState({ name: "", image: "" });
 
   useEffect(() => {
-    // Fetch user data when component mounts
+   
     fetchUserData();
   }, []);
 
   const fetchUserData = () => {
-    // This is a mock function. In a real app, you'd fetch this data from your backend or state management system
-    // Simulating an API call
+    
     setTimeout(() => {
       setUser({
-        name: "Mark", // Replace with actual user name
-        image: "/Icons/userProfileImg.png" // Replace with actual user image path
+        name: "Mark", 
+        image: "/Icons/userProfileImg.png" 
       });
     }, 1000);
   };
 
   const handleGetInTouch = () => {
-    // Replace with your WhatsApp page URL
+    
     window.open("https://wa.me/yourwhatsappnumber", "_blank");
   };
 
   const handleBuyNow = (price, coins) => {
-    // Navigate to payment-mode page with selected package info
+  
     navigate("/payment-mode", { state: { price, coins } });
   };
 
