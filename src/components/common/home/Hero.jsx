@@ -1,30 +1,59 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import AppStoreButtons from '../AppStoreButtons';
-
-
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <section className="flex relative z-10 flex-col items-start px-20  pt-20 pb-32 mt-8 -mb-1 w-full bg-black bg-opacity-30 text-zinc-50 max-md:px-5 max-md:pb-24 max-md:max-w-full">
+    <section className="mx-auto h-fit w-[90%]">
+      <div className="flex max-w-[380px] flex-col gap-3">
+        <h1 className="text wrap font-Poppins text-[40px] font-bold text-white">
+          Pass your Exams in Style !
+        </h1>
 
-      <h1 className="text-4xl font-bold w-[354px]">
-        Pass your Exams with Style !
-      </h1>
-      <div className="flex gap-4 justify-center items-center py-2.5 text-xl font-semibold">
-        <div className="self-stretch my-auto">Proper Preparation</div>
-        <div className="shrink-0 self-stretch my-auto w-0 border-2 border-white border-solid h-[19px]" />
-      <div className="self-stretch my-auto">Excellent Results</div>
+        <div className="font-Inter inline-flex items-center text-xl font-semibold text-white">
+          <p className="border-r-4 border-white pr-3 leading-none">
+            Proper Preparation
+          </p>
+          <p className="ml-3 leading-none">Excellent Results</p>
+        </div>
+
+        <Link
+          to="/sign-up"
+          className="font-Poppins my-6 h-fit w-fit rounded-[20px] bg-white px-9 py-4 text-xl font-semibold text-teal-700 no-underline transition-colors hover:bg-teal-100"
+        >
+          GET STARTED
+        </Link>
+
+        <div className="inline-flex items-center gap-3">
+          <CTAButtons
+            lightText="Available on the"
+            boldText="Google Play"
+            url="/Icons/playstore-icon.svg"
+            alt="Playstore button"
+          />
+          <CTAButtons
+            lightText="Download on the"
+            boldText="App Store"
+            url="/Icons/apple-icon.svg"
+            alt="Apple store button"
+          />
+        </div>
       </div>
-      <Link 
-        to="/sign-up" 
-        className="px-9 py-4 mt-10 text-xl font-semibold text-teal-700 bg-white rounded-3xl max-md:px-5 no-underline hover:bg-teal-100 transition-colors"
-      >
-        GET STARTED
-      </Link>
-      <AppStoreButtons/>
     </section>
-);
+  );
 }
 
 export default Hero;
+
+const CTAButtons = ({ lightText, boldText, url, alt }) => {
+  return (
+    <>
+      <div className="inline-flex cursor-pointer items-center gap-[10px] rounded-[10px] border-[1px] bg-[#0E0E0E] px-4 py-[10px]">
+        <img src={url} alt={alt} />
+        <aside className="font-Inter flex flex-col gap-[2px] text-white">
+          <small className="text-[10px] font-light">{lightText}</small>
+          <p className="text-lg font-semibold">{boldText}</p>
+        </aside>
+      </div>
+    </>
+  );
+};
