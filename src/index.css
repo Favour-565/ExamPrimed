@@ -11,7 +11,7 @@ html {
 .hero-background {
   background-color: rgb(101, 89, 89);
   opacity: 0.9;
-  background-image: url("../images/background 1.png");
+  background-image: url("../images/background.png");
   background-size: cover;
   background-repeat: no-repeat, no-repeat;
 }
