@@ -1,20 +1,17 @@
 import NavItems from "./NavItems";
 import NavItem from "./NavItem";
 import AccountButton from "./home/AccountButton";
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-=======
 import { Link } from "react-router-dom";
->>>>>>> 9275b4d71703cd52aec5e1487b9422ebea4c34d7
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  
-  
-  const isAwardOrProfile = location.pathname === '/award' || location.pathname === '/profile';
+
+  const isAwardOrProfile =
+    location.pathname === "/award" || location.pathname === "/profile";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +29,6 @@ function Header() {
     };
   }, []);
 
-  
   const getHeaderBackground = () => {
     if (isAwardOrProfile) {
       return "bg-[#008E90]";
@@ -40,7 +36,6 @@ function Header() {
     return isScrolled ? "bg-white" : "bg-transparent";
   };
 
-  
   const getTextColor = () => {
     if (isAwardOrProfile) {
       return "text-white";
@@ -49,36 +44,6 @@ function Header() {
   };
 
   return (
-<<<<<<< HEAD
-    <header
-      className={`fixed inset-x-0 top-0 z-20 w-full py-2 transition-colors duration-300 ease-in-out ${getHeaderBackground()} ${getTextColor()} ${isScrolled && !isAwardOrProfile ? "shadow-lg" : ""}`}
-    >
-      <nav className="mx-auto flex max-w-[1300px] items-center justify-between px-2 text-base font-semibold">
-        <img
-          loading="lazy"
-          src={`images/${isAwardOrProfile || !isScrolled ? "white-logo.svg" : "colored-logo.svg"}`}
-          alt="Exam primed Logo"
-          className="h-12 w-auto"
-        />
-        <ul className="flex items-center gap-5">
-          {NavItems.map((item, index) => (
-            <NavItem 
-              key={index} 
-              item={{
-                ...item,
-                className: isAwardOrProfile ? "text-white hover:text-gray-200" : undefined
-              }} 
-            />
-          ))}
-        </ul>
-        <AccountButton className={isAwardOrProfile ? "text-white" : undefined} />
-      </nav>
-    </header>
-  );
-}
-
-export default Header;
-=======
     <>
       <div className="relative">
         <DesktopHeader isScrolled={isScrolled} />
@@ -225,4 +190,3 @@ const MobileMenus = ({ isMenuOpen }) => {
     </>
   );
 };
->>>>>>> 9275b4d71703cd52aec5e1487b9422ebea4c34d7

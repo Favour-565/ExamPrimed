@@ -15,11 +15,11 @@ const PartnersSection = () => {
               imgUrl="/images/9mobile.svg"
               className="bg-[#015E43]"
             />
-            <PartnerBlock imgUrl="/images/airtel.svg" className="bg-white" />
-            <PartnerBlock imgUrl="/images/MTN.svg" className="bg-[#FCCB04]" />
+            <PartnerBlock imgUrl="/images/Airtel.svg" className="bg-white" />
+            <PartnerBlock imgUrl="/images/Mtn.svg" className="bg-[#FCCB04]" />
             <PartnerBlock imgUrl="/images/NTA.svg" className="bg-white" />
             <PartnerBlock
-              imgUrl="/images/superscreen.svg"
+              imgUrl="/images/SuperScreen.svg"
               className="bg-white"
             />
           </div>
