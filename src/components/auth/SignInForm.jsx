@@ -16,7 +16,7 @@ function SignInForm() {
       ...prevData,
       [name]: value,
     }));
-    // Clear error when user starts typing
+    
     if (errors[name]) {
       setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
     }
@@ -48,16 +48,15 @@ function SignInForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Add your sign-in logic here
+      
       console.log('Form submitted:', formData);
-      // Simulating a successful sign-in
-      // In a real application, you would verify credentials here
+     
       navigate('/select-exam');
     }
   };
 
   return (
-    <section className="flex flex-col self-end px-10 py-6 mt-32 mr-10 mb-0 w-[40rem] text-justify bg-zinc-50 bg-opacity-80 rounded-[50px] shadow-[-2px_4px_6px_rgba(0,0,0,0.25)]  max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:mb-2.5">
+    <section className="flex flex-col self-center px-6 py-6 mt-32 ml-96 mb-0 w-[30rem] text-justify bg-zinc-50 bg-opacity-80 rounded-[50px] shadow-[-2px_4px_6px_rgba(0,0,0,0.25)]  max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:mb-2.5">
       <h1 className="self-center ml-3.5 text-4xl font-semibold text-teal-800">
         Sign In
       </h1>
@@ -109,7 +108,7 @@ function SignInForm() {
           </div>
           {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
         </div>
-        <Link to="/forgot-password" className="self-end p-2.5 mt-5 text-xl font-medium text-cyan-950">
+        <Link to="/forgot-password" className="self-end p-2.5 mt-5 text-xl font text-cyan-950">
           Forgot Password?
         </Link>
         <button type="submit" className="flex gap-2.5 justify-center items-center px-2.5 py-4 mt-8 text-xl font-semibold bg-teal-700 rounded-xl shadow-sm min-h-[74px] text-zinc-50 max-md:max-w-full">
@@ -120,7 +119,7 @@ function SignInForm() {
         <p className="grow my-auto text-xl font-medium">
           Don't have an account?
         </p>
-        <Link to="/sign-up" className="text-2xl font-semibold">Sign Up</Link>
+        <Link to="/sign-up" className="text-xl font-semibold">Sign Up</Link>
       </div>
     </section>
   );

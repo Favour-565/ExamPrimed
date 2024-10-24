@@ -21,13 +21,13 @@ function ContactInfo() {
         <p className="self-stretch mt-2.5 text-xl">You can fill this form or drop an email to</p>
         <button 
           onClick={handleEmailClick}
-          className="flex gap-5 justify-center items-center self-stretch  px-8 py-3 mt-4 text-xl text-white whitespace-nowrap bg-teal-700 rounded-[100px] max-md:px-5 max-md:mr-0.5"
+          className="flex gap-5 justify-center items-center self-stretch mr-20 px-8 py-3 mt-4 text-xl text-white whitespace-nowrap bg-teal-700 rounded-[100px] max-md:px-5 max-md:mr-0.5"
         >
           <img 
             loading="lazy" 
             src="\vectors\fluent_mail-24-filled.png" 
             alt="" 
-            className="object-contain shrink-0 self-stretch my-auto w-8 aspect-square" 
+            className="object-contain shrink-0 self-stretch   my-auto w-8 aspect-square" 
           />
           <span className="self-stretch my-auto">info@examprimed.com</span>
         </button>

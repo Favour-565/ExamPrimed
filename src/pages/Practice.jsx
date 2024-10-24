@@ -18,7 +18,7 @@ const exams = [
 function Practice() {
   return (
     <main className="flex overflow-hidden relative flex-col pt-5" style={{ backgroundImage: `url('/images/profilebg.svg')` }}>
-      <div className="flex relative flex-col ml-10 w-full max-w-[1300px] max-md:max-w-full">
+      <div className="flex relative flex-col m-auto w-full max-w-[1300px] max-md:max-w-full">
         <header className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full">
           <img loading="lazy" src="/images/logo (2).svg" alt="Logo" className="object-contain shrink-0 self-start max-w-full aspect-[2.43] w-[107px]" />
           <div className="flex-auto ml-8 self-end mt-10 max-md:max-w-full">

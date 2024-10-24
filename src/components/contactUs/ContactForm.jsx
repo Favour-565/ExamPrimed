@@ -31,7 +31,7 @@ function ContactForm() {
 
     setIsSubmitting(true);
     try {
-      // Replace with your actual API endpoint
+     
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,7 +63,7 @@ function ContactForm() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    // Clear error when user starts typing
+    
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };

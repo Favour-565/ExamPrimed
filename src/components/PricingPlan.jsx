@@ -41,7 +41,7 @@ const PricingPlan = ({
       };
 
       
-      navigate('/payment', {
+      navigate('/payment-mode', {
         state: {
           session: paymentSession,
           returnUrl: window.location.href
@@ -61,7 +61,7 @@ const PricingPlan = ({
       className="flex flex-col m-3 max-md:ml-0 max-md:w-full" 
       
     >
-      <div className="flex flex-col items-start py-8 pr-7 pl-2.5 mx-auto w-full rounded-3xl bg-cyan-950 max-md:pr-5 max-md:mt-5">
+      <div className="flex flex-col items-start py-8 pr-7 pl-2.5 mx-4 w-full rounded-3xl bg-cyan-950 max-md:pr-5 max-md:mt-5">
         <div className="flex flex-col max-w-full w-[179px]">
           <h2 className="gap-2.5 self-start p-2.5 text-base font-semibold text-white">
             {title}

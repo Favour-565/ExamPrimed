@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useUserManagement } from '../hooks/useUserManagement';
 import ProfileSection from '../components/userProfile/ProfileSection';
 import ActionButton from '../components/userProfile/ActionButton';
 import ActionItem from '../components/userProfile/ActionItem';
@@ -6,6 +7,7 @@ import Header from '../components/common/Header';
 import SubmitButton from '../components/userProfile/SubmitButton';
 
 function Profile() {
+  const { updateUserProfile, logout, isLoading, error } = useUserManagement();
   const [profileData, setProfileData] = useState({
     name: 'Mark Obidiegwu',
     email: 'markobidiegwu@gmail.com',
@@ -15,8 +17,9 @@ function Profile() {
     totalCoins: 0,
     coinHistory: []
   });
-
   const [activeModal, setActiveModal] = useState(null);
+  const [updateStatus, setUpdateStatus] = useState({ success: false, message: '' });
+  
 
   
   useEffect(() => {
@@ -102,21 +105,54 @@ function Profile() {
     }
   ];
 
-  const handleSubmit = () => {
-    setProfileData(prev => ({
-      ...prev,
-      name: profileData.newName || prev.name,
-      phone: profileData.newPhone || prev.phone,
-      newName: '',
-      newPhone: ''
-    }));
-    setActiveModal(null);
+  const handleSubmit = async () => {
+    if (!profileData.newName && !profileData.newPhone) {
+      setUpdateStatus({
+        success: false,
+        message: 'No changes to update'
+      });
+      return;
+    }
+
+    try {
+      const updatedData = await updateUserProfile({
+        name: profileData.newName || profileData.name,  
+        phone: profileData.newPhone || profileData.phone,  
+      });
+
+
+      setProfileData(prev => ({
+        ...prev,
+        name: profileData.newName || prev.name,
+        phone: profileData.newPhone || prev.phone,
+        newName: '',
+        newPhone: ''
+      }));
+
+      setUpdateStatus({
+        success: true,
+        message: 'Profile updated successfully'
+      });
+      setActiveModal(null);
+    } catch (err) {
+      setUpdateStatus({
+        success: false,
+        message: error || 'Failed to update profile'
+      });
+    }
   };
 
-  const handleLogout = () => {
-    console.log('Logging out...');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      
+    } catch (err) {
+      setUpdateStatus({
+        success: false,
+        message: error || 'Failed to logout'
+      });
+    }
   };
-
   const handleDeleteAccount = () => {
     console.log('Deleting account...');
     setActiveModal(null);
@@ -157,10 +193,11 @@ function Profile() {
               </div>
 
               <SubmitButton
-                text="SUBMIT"
+                text={isLoading ? "UPDATING..." : "SUBMIT"}
                 icon="/Icons/maki_arrow.svg"
                 onClick={handleSubmit}
-                className="mt-8 w-full"
+                className={`mt-8 w-full ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                disabled={isLoading}
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -191,14 +228,24 @@ function Profile() {
         </div>
 
         <ActionButton 
-          text="Logout" 
-          icon="\Icons\mdi_logout.svg" 
-          onClick={handleLogout}
-          className="bg-red-700 mt-8 mx-20" 
-        />
+        text={isLoading ? "LOGGING OUT..." : "Logout"} 
+        icon="\Icons\mdi_logout.svg" 
+        onClick={handleLogout}
+        className={`bg-red-700 mt-8 mx-20 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+        disabled={isLoading}
+      />
+
+    
+      {updateStatus.message && (
+        <div className={`fixed top-4 right-4 p-4 rounded-md ${
+          updateStatus.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+        }`}>
+          {updateStatus.message}
+        </div>
+      )}
       </section>
 
-      {/* Existing Modals */}
+      
       {activeModal === 'name' && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full">

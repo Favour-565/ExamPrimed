@@ -3,13 +3,9 @@ import React, { useState } from 'react';
 function PasswordField({ label, name, value, onChange, error }) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
-    <div className="flex flex-col gap-2.5 w-full mt-5">
-      <div className="flex items-center px-2.5 py-2.5 w-full rounded-xl shadow-sm bg-zinc-50 min-h-[60px] max-md:max-w-full">
+    <div className="flex flex-col w-full mb-4">
+      <div className="flex items-center px-4 py-3 rounded-xl shadow-sm bg-zinc-50">
         <label htmlFor={name} className="sr-only">{label}</label>
         <input
           type={showPassword ? "text" : "password"}
@@ -18,13 +14,13 @@ function PasswordField({ label, name, value, onChange, error }) {
           value={value}
           onChange={onChange}
           placeholder={label}
-          className="flex-grow p-2.5 bg-transparent outline-none"
+          className="flex-grow bg-transparent outline-none text-base md:text-lg"
           aria-label={label}
         />
         <button 
           type="button"
-          onClick={togglePasswordVisibility}
-          className="flex items-center justify-center w-10 h-10 text-gray-500 hover:text-gray-700 focus:outline-none"
+          onClick={() => setShowPassword(!showPassword)}
+          className="flex items-center justify-center w-10 h-10 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 rounded-full"
           aria-label={showPassword ? "Hide password" : "Show password"}
         >
           {showPassword ? (
@@ -39,7 +35,7 @@ function PasswordField({ label, name, value, onChange, error }) {
           )}
         </button>
       </div>
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }
