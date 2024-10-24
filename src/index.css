@@ -9,9 +9,40 @@ html {
 }
 
 .hero-background {
+  position: relative;
   background-color: rgb(101, 89, 89);
   opacity: 0.9;
-  background-image: url("../images/background 1.png");
+  background-image: url("../images/background.png");
   background-size: cover;
-  background-repeat: no-repeat, no-repeat;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: normal;
+}
+
+@media (min-width: 768px) {
+  .hero-background {
+    min-height: 100vh;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-background {
+    min-height: 75dvh;
+  }
+}
+
+@media (max-width: 1280px) {
+  .hero-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* \Adjust opacity as needed */
+  }
+}
+
+.section-bg-gradient {
+  @apply relative w-full bg-gradient-to-br from-[#D4D4D4] from-30% via-[#EFEFEF] via-50% to-[#D4D4D4] to-90%;
 }
