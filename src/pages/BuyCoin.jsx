@@ -16,14 +16,14 @@ const coinPackages = [
 function BuyCoinsPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ name: "", image: "" });
+  const [totalCoins, setTotalCoins] = useState(0); // State to track total coins
 
   useEffect(() => {
-   
     fetchUserData();
   }, []);
 
   const fetchUserData = () => {
-    
+    // Simulating fetching user data from an API
     setTimeout(() => {
       setUser({
         name: "Mark", 
@@ -32,13 +32,17 @@ function BuyCoinsPage() {
     }, 1000);
   };
 
-  const handleGetInTouch = () => {
-    
-    window.open("https://wa.me/yourwhatsappnumber", "_blank");
+  // Function to handle displaying the total coin amount
+  const handleTotalCoin = () => {
+    alert(`You have ${totalCoins} coins remaining.`);
   };
 
+  // Function to handle buying coins
   const handleBuyNow = (price, coins) => {
-  
+    // Add the purchased coins to the totalCoins state
+    setTotalCoins((prevTotal) => prevTotal + coins);
+    
+    // Navigate to the payment page
     navigate("/payment-mode", { state: { price, coins } });
   };
 
@@ -55,9 +59,9 @@ function BuyCoinsPage() {
           </div>
           <button 
             className="self-start px-6 py-3.5 text-base font-medium bg-[#04379B] text-white shadow-sm rounded-[100px] max-md:px-5"
-            onClick={handleGetInTouch}
+            onClick={handleTotalCoin}
           >
-            Get in touch
+            TotalCoin: {totalCoins}
           </button>
         </div>
         {coinPackages.map((pack, index) => (

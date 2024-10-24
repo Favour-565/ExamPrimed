@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import ResultCard from "../components/Award/ResultCard";
 import ActionBtn from "../components/Award/ActionBtn";
-import NavHeader from "../components/userProfile/navHeader/NavHeader";
+// import NavHeader from "../components/userProfile/navHeader/NavHeader";
+import Header from "../components/common/Header";
 
 function Award() {
   
@@ -36,7 +37,7 @@ function Award() {
     <main className="flex overflow-hidden relative flex-col pb-32 max-md:pb-24">
      
       <img loading="lazy" src="\images\profilebg.svg" alt="" className="object-cover absolute inset-0 size-full" />
-      <NavHeader />
+      <Header />
       
       <section className="relative self-center mt-12 max-w-full rounded-xl w-[1189px] max-md:pr-5 max-md:mt-10">
         <div className="flex gap-5 max-md:flex-col" style={{ backgroundImage: `url('/images/AwardFrames.png')` }}>

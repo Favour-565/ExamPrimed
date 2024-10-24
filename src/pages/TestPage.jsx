@@ -24,7 +24,17 @@ function TestPage() {
       
       <div className="relative inset-0 flex flex-col items-center justify-center">
         <div className="p-6 mt-8 bg-white bg-opacity-90 rounded-lg shadow-lg">
-          <QuestionCard onQuizComplete={handleQuizComplete} />
+          {!quizResults ? (
+            <QuestionCard onQuizComplete={handleQuizComplete} />
+          ) : (
+            <div className="text-center">
+              <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
+              <p>Total Questions: {quizResults.totalQuestions}</p>
+              <p>Correct Answers: {quizResults.correctAnswers}</p>
+              <p>Incorrect Answers: {quizResults.incorrectAnswers}</p>
+              <p>Score Accuracy: {quizResults.scoreAccuracy}%</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

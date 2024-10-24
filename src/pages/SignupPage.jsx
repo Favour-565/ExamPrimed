@@ -2,10 +2,10 @@ import SignUpForm from "../components/auth/SignUpForm";
 
 function SignupPage() {
     return (
-        <main className="flex overflow-hidden flex-col text-justify  ">
-            <SignUpForm/>
+        <main className="fixed inset-0 w-full h-screen overflow-hidden">
+            <SignUpForm />
         </main>
     );
-  }
-  
-  export default SignupPage;
+}
+
+export default SignupPage;

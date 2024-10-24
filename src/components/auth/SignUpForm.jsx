@@ -52,21 +52,19 @@ function SignUpForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Here you would typically send the form data to your backend
       console.log("Form submitted:", formData);
-      // Redirect to login page
       navigate('/login');
     }
   };
 
   return (
-    <section className="flex relative flex-col min-h-[400px] max-md:max-w-full">
-      <img loading="lazy" src="/images/SignupScreen.png" alt="" className="object-fit absolute inset-0 size-full" />
+    <section className="flex relative flex-col  min-h-[300px] max-md:max-w-full"> {/* reduced height from 400px to 350px */}
+      <img loading="lazy" src="/images/SignupScreen.png" alt="" className="object-cover absolute inset-0 size-full" /> {/* changed object-fit to object-cover */}
       <Header/>
-      <div className="flex relative flex-col justify-center items-end p-20 w-full max-md:px-5 max-md:max-w-full"> 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center px-6 py-6 max-w-full bg-zinc-50 bg-opacity-80 rounded-[50px] w-[640px] max-md:px-5">
-          <h1 className="text-4xl font-semibold text-cyan-950">Sign up</h1>
-          <div className="flex flex-col self-stretch mt-10 text-lg text-black text-opacity-50 max-md:max-w-full">
+      <div className="flex relative flex-col  mt-10 justify-center items-end p-5 w-full max-md:px-4 max-md:max-w-full"> {/* changed items-center to items-end */}
+        <form onSubmit={handleSubmit} className="flex flex-col items-center px-6 py-1 mr-20 max-w-full bg-zinc-50 bg-opacity-80 rounded-[40px] w-[500px] max-md:w-full max-md:px-4 max-md:mr-0"> {/* added mr-20 for right margin */}
+          <h1 className="text-3xl font-semibold text-cyan-950">Sign up</h1>
+          <div className="flex flex-col self-stretch mt-8 text-base text-black text-opacity-50 max-md:max-w-full">
             {inputFields.map((field, index) => (
               <InputField 
                 key={index} 
@@ -100,9 +98,9 @@ function SignUpForm() {
             error={errors.agreeTerms}
           />
           <Button label="Sign-Up" type="submit" />
-          <div className="flex gap-1.5 mt-5 max-w-full text-cyan-950 w-[332px]">
-            <p className="grow my-auto text-xl font-medium">Already have an account?</p>
-            <Link to="/login" className="text-3l font-semibold">SignIn</Link>
+          <div className="flex gap-1.5 mt-3 max-w-full text-cyan-950 w-[300px]">
+            <p className="grow my-auto text-base font-semibold">Already have an account?</p>
+            <Link to="/login" className=" text-xl font-semibold">Sign In</Link>
           </div>
         </form>
       </div> 

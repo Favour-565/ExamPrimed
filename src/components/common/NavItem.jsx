@@ -57,7 +57,7 @@ const NavItem = ({ item }) => {
       );
     }
   }
-  return null; // Return null for invalid item types
+  return null;
 };
 
 export default NavItem;

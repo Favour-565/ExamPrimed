@@ -33,7 +33,6 @@ function PaymentMode() {
   const [packageInfo, setPackageInfo] = useState(null);
 
   useEffect(() => {
-    // Retrieve package info from location state
     if (location.state && location.state.price && location.state.coins) {
       setPackageInfo(location.state);
     }
@@ -44,15 +43,14 @@ function PaymentMode() {
   };
 
   const handleBack = () => {
-    navigate(-1); // Go back to the previous page
+    navigate(-1); 
   };
 
   const handleProceed = () => {
     if (selectedOption) {
-      // Here you would typically process the payment or navigate to a confirmation page
       console.log("Processing payment for option:", selectedOption);
       console.log("Package info:", packageInfo);
-      // For now, let's just navigate to a hypothetical confirmation page
+
       navigate("/payment-confirmation", { 
         state: { 
           paymentOption: selectedOption,
@@ -70,10 +68,10 @@ function PaymentMode() {
       style={{ backgroundImage: `url('/images/profilebg.svg')` }}
     >
       <main className="m-auto pr-5 pb-28 pl-20 w-[800px] rounded-3xl bg-teal-800 bg-opacity-100 max-md:pb-24 max-md:pl-5">
-        <div className="flex gap-5 max-md:flex-col">
+        <div className="flex gap-5  max-md:flex-col">
           <section className="flex flex-col w-[79%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow mt-7 text-md font-semibold text-black max-md:mt-10 max-md:max-w-full">
-              <h1 className="self-center ml-20 text-3xl text-zinc-50">Payment Mode</h1>
+              <h1 className="self-center ml-20 text-3xl text-zinc-50 mt-10">Payment Mode</h1> {/* Added margin-top */}
               {paymentOptions.map((option) => (
                 <PaymentOption 
                   key={option.id} 
@@ -84,7 +82,7 @@ function PaymentMode() {
               ))}
               <button 
                 onClick={handleProceed}
-                className="self-center px-14 py-3.5 mt-5 text-base font-medium bg-[#007273] text-white whitespace-nowrap shadow-sm rounded-[100px] max-md:px-5"
+                className=" self-center ml-32  px-14 py-3.5 mt-5 text-base font-medium bg-[#3C9D9E] text-white whitespace-nowrap shadow-sm rounded-[100px] max-md:px-5"
               >
                 Proceed
               </button>
@@ -93,7 +91,7 @@ function PaymentMode() {
           <aside className="flex flex-col ml-5 w-[21%] max-md:ml-0 max-md:w-full">
             <button 
               onClick={handleBack}
-              className="px-14 py-3.5 text-base font-medium bg-[#007273] text-white whitespace-nowrap shadow-sm rounded-[100px] max-md:px-5 max-md:mt-10"
+              className="px-14 py-3.5 text-base font-medium bg-[#3C9D9E] text-white whitespace-nowrap shadow-sm rounded-[100px] max-md:px-5 mt-10" // Added margin-top to Back button
             >
               Back
             </button>

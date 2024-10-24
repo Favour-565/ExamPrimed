@@ -2,7 +2,7 @@ import React from 'react';
 
 function CheckboxField({ name, checked, onChange, error }) {
   return (
-    <div className="flex flex-col gap-2.5 mt-20 max-w-full text-sm text-teal-700 w-[499px] max-md:mt-10">
+    <div className="flex flex-col gap-2.5  max-w-full text-sm text-teal-700 w-[499px] max-md:mt-10">
       <div className="flex items-center">
         <input 
           type="checkbox" 
