@@ -1,22 +1,20 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../../data/stores/authStore";
 
 function AccountButton() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(),
+    { isAuth } = useAuthStore();
 
   const handleClick = () => {
-    navigate('/profile');
+    navigate(isAuth ? "/profile" : "/login");
   };
 
   return (
-    <div className="bg-[#00595F] bg-opacity-100 mr-10 border py-2 px-9 p-3 rounded-[25px]">
-      <button 
-        className="text-white hover:text-white-800"
-        onClick={handleClick}
-      >
+    <div className="mr-10 rounded-[25px] border bg-[#00595F] bg-opacity-100 p-3 px-9 py-2">
+      <button className="hover:text-white-800 text-white" onClick={handleClick}>
         My Account
       </button>
-    </div> 
+    </div>
   );
 }
 
