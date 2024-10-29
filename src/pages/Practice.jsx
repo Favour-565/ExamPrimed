@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import Footer from '../components/common/Footer';
 import PracticeExam from '../components/Exams/PracticeExam';
 import BackButton from '../components/Exams/BackButton';
-
 
 const exams = [
   { title: 'COMMON ENTRANCE', imageSrc: '/images/commonEntrance.png', path: '/subjects/' },
@@ -17,53 +16,44 @@ const exams = [
 
 function Practice() {
   return (
-    <main className="flex overflow-hidden relative flex-col pt-5" style={{ backgroundImage: `url('/images/profilebg.svg')` }}>
-      <div className="flex relative flex-col m-auto w-full max-w-[1300px] max-md:max-w-full">
-        <header className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full">
-          <img loading="lazy" src="/images/logo (2).svg" alt="Logo" className="object-contain shrink-0 self-start max-w-full aspect-[2.43] w-[107px]" />
-          <div className="flex-auto ml-8 self-end mt-10 max-md:max-w-full">
-            <div className="flex gap-5 max-md:flex-col">
-              <div className="flex flex-col ml-24 w-9/12 max-md:ml-0 max-md:w-full">
-                <h1 className="self-stretch mx-auto my-auto text-4xl font-semibold text-teal-700 tracking-[18px] max-md:mt-10">
-                  SELECT EXAM
-                </h1>
-              </div>
-              <div className="flex flex-col mr-[320px] w-3/12 max-md:ml-0 max-md:w-full">
-                <img loading="lazy" src="/Icons/GoIcon.png" alt="Decorative element" className="object-contain grow shrink-0 max-w-full aspect-[1.14] w-[122px] max-md:mt-8" />
-              </div>
-            </div>
-            <BackButton/>
+    <main className="flex min-h-screen flex-col overflow-x-hidden bg-cover bg-center pt-5" 
+          style={{ backgroundImage: `url('/images/profilebg.svg')` }}>
+      <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <header className="relative flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center space-x-4">
+            <img 
+              src="/images/logo (2).svg" 
+              alt="Logo" 
+              className="h-auto w-[107px]"
+            />
+          </div>
+          <div className="flex flex-col items-center sm:flex-row sm:space-x-8">
+            <h1 className="text-center text-2xl font-semibold tracking-wider text-teal-700 sm:text-3xl lg:text-4xl lg:tracking-[18px]">
+              SELECT EXAM
+            </h1>
+            <img 
+              src="/Icons/GoIcon.png" 
+              alt="Decorative element" 
+              className="mt-4 h-auto w-[100px] sm:mt-0"
+            />
+          </div>
+          <div className="absolute right-4 top-0 sm:relative sm:right-0 sm:top-0">
+            <BackButton />
           </div>
         </header>
 
-        <section className="self-center mr-16 mt-16 w-full max-w-[985px] max-md:mt-10 max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col">
-            {exams.slice(0, 3).map((exam, index) => (
-              <Link key={index} to={exam.path}>  {/* Add Link to navigate */}
-                <PracticeExam title={exam.title} imageSrc={exam.imageSrc} />
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="self-center mr-16 mt-8 w-full max-w-[985px] max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col">
-            {exams.slice(3, 6).map((exam, index) => (
-              <Link key={index + 3} to={exam.path}>  {/* Add Link to navigate */}
-                <PracticeExam title={exam.title} imageSrc={exam.imageSrc} />
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="flex relative flex-col ml-[7rem] mt-8 pb-28 max-w-full text-lg font-bold text-white whitespace-nowrap rounded-xl aspect-[1.603] w-[295px] max-md:ml-2.5">
-          <Link to={exams[6].path}> {/* Add Link to navigate */}
-            <PracticeExam title={exams[6].title} imageSrc={exams[6].imageSrc} />
-          </Link>
-        </section>
+        {/* Exams Grid */}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {exams.map((exam, index) => (
+            <Link key={index} to={exam.path} className="transform transition-transform hover:scale-105">
+              <PracticeExam title={exam.title} imageSrc={exam.imageSrc} />
+            </Link>
+          ))}
+        </div>
       </div>
 
-      <Footer />
+      <Footer className="mt-auto" />
     </main>
   );
 }

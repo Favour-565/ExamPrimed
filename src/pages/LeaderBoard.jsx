@@ -14,28 +14,37 @@ const leaderboardData = [
 ];
 
 function LeaderBoard() {
-  
   const sortedLeaderboard = leaderboardData.sort((a, b) => b.quizResult - a.quizResult);
 
   return (
-    <main className="flex  relative flex-col items-center  pb-20 min-h-full">
-      <img loading="lazy" src="\images\profilebg.svg" alt="" className="object-cover absolute inset-0 size-full" />
-      <header className="absolute w-full mb-20 h-[220px]  " style={{ backgroundImage: `url('/images/leaderboardNavscreen.svg')` }} >
+    <main className="flex relative flex-col items-center pb-20 min-h-full">
+      <img 
+        loading="lazy" 
+        src="\images\profilebg.svg" 
+        alt="" 
+        className="object-cover absolute inset-0 size-full" 
+      />
+      <header 
+        className="absolute w-full mb-20 h-[220px]" 
+        style={{ backgroundImage: `url('/images/leaderboardNavscreen.svg')` }}
+      >
         <Header />
-        <h1 className="flex justify-center mt-28   text-4xl font-semibold text-white ">
+        <h1 className="flex justify-center mt-28 text-3xl md:text-4xl font-semibold text-white">
           LEADER BOARD
         </h1>
       </header>
-      <section className="mt-40 pt-20 w-full max-w-[1000px] ">
+      <section className="relative mt-40 pt-20 w-full px-4 md:px-6 max-w-[1000px]">
         {sortedLeaderboard.map((item, index) => (
-          
-          <LeaderBoardItem key={index} {...item} rank={`${index + 1}${getOrdinalSuffix(index + 1)}`} />
+          <LeaderBoardItem 
+            key={index} 
+            {...item} 
+            rank={`${index + 1}${getOrdinalSuffix(index + 1)}`} 
+          />
         ))}
       </section>
     </main>
   );
 }
-
 
 function getOrdinalSuffix(rank) {
   if (rank % 10 === 1 && rank % 100 !== 11) return 'st';

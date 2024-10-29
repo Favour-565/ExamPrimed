@@ -159,7 +159,7 @@ function Profile() {
   };
 
   return (
-    <main className="flex overflow-hidden relative flex-col pb-32 min-h-screen">
+    <main className="flex overflow-hidden relative flex-col min-h-screen bg-gray-50">
       <img 
         loading="lazy" 
         src="\images\profilebg.svg" 
@@ -168,81 +168,81 @@ function Profile() {
       />
       <Header />
       
-      <section className="flex relative flex-col items-end self-center px-8 py-12 mt-28 bg-white rounded-xl w-full max-w-[1204px] mx-auto">
-        <div className="w-full max-w-[1004px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div className="md:col-span-4">
-              <ProfileSection 
-                name={profileData.name}
-                email={profileData.email}
-                phone={profileData.phone}
-              />
-            </div>
-
-            <div className="md:col-span-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {actionItems.slice(0, 2).map((item, index) => (
-                  <div key={index} onClick={item.action} className="cursor-pointer">
-                    <ActionItem 
-                      icon={item.icon} 
-                      text={item.text} 
-                      className={item.className}
-                    />
-                  </div>
-                ))}
+      <section className="relative flex flex-col px-4 md:px-8 py-8 md:py-12 mt-20 md:mt-28 mx-auto w-full max-w-[1204px]">
+        <div className="bg-white rounded-xl p-6 md:p-8 w-full">
+          <div className="max-w-[1004px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              
+              <div className="lg:col-span-4">
+                <ProfileSection 
+                  name={profileData.name}
+                  email={profileData.email}
+                  phone={profileData.phone}
+                />
               </div>
 
-              <SubmitButton
-                text={isLoading ? "UPDATING..." : "SUBMIT"}
-                icon="/Icons/maki_arrow.svg"
-                onClick={handleSubmit}
-                className={`mt-8 w-full ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
-                disabled={isLoading}
-              />
+              
+              <div className="lg:col-span-8 flex flex-col">
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                  {actionItems.slice(0, 2).map((item, index) => (
+                    <div key={index} onClick={item.action} className="cursor-pointer">
+                      <ActionItem 
+                        icon={item.icon} 
+                        text={item.text} 
+                        className={item.className}
+                      />
+                    </div>
+                  ))}
+                </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                {actionItems.slice(2, 4).map((item, index) => (
-                  <div key={index} onClick={item.action} className="cursor-pointer">
-                    <ActionItem 
-                      icon={item.icon} 
-                      text={item.text} 
-                      className={item.className}
-                    />
-                  </div>
-                ))}
-              </div>
+                
+                <SubmitButton
+                  text={isLoading ? "UPDATING..." : "SUBMIT"}
+                  icon="/Icons/maki_arrow.svg"
+                  onClick={handleSubmit}
+                  className="my-8"
+                  disabled={isLoading}
+                />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                {actionItems.slice(4).map((item, index) => (
-                  <div key={index} onClick={item.action} className="cursor-pointer">
-                    <ActionItem 
-                      icon={item.icon} 
-                      text={item.text} 
-                      className={item.className}
-                    />
-                  </div>
-                ))}
+               
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                  {actionItems.slice(2, 4).map((item, index) => (
+                    <div key={index} onClick={item.action} className="cursor-pointer">
+                      <ActionItem 
+                        icon={item.icon} 
+                        text={item.text} 
+                        className={item.className}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6">
+                  {actionItems.slice(4).map((item, index) => (
+                    <div key={index} onClick={item.action} className="cursor-pointer">
+                      <ActionItem 
+                        icon={item.icon} 
+                        text={item.text} 
+                        className={item.className}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                
+                <ActionButton 
+                  text={isLoading ? "LOGGING OUT..." : "Logout"} 
+                  icon="\Icons\mdi_logout.svg" 
+                  onClick={handleLogout}
+                  className="bg-red-700 mt-8"
+                  disabled={isLoading}
+                />
               </div>
             </div>
           </div>
         </div>
-
-        <ActionButton 
-        text={isLoading ? "LOGGING OUT..." : "Logout"} 
-        icon="\Icons\mdi_logout.svg" 
-        onClick={handleLogout}
-        className={`bg-red-700 mt-8 mx-20 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
-        disabled={isLoading}
-      />
-
-    
-      {updateStatus.message && (
-        <div className={`fixed top-4 right-4 p-4 rounded-md ${
-          updateStatus.success ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-        }`}>
-          {updateStatus.message}
-        </div>
-      )}
       </section>
 
       

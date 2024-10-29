@@ -2,23 +2,25 @@ import React from 'react';
 
 function CheckboxField({ name, checked, onChange, error }) {
   return (
-    <div className="flex flex-col gap-2.5  max-w-full text-sm text-teal-700 w-[499px] max-md:mt-10">
-      <div className="flex items-center">
-        <input 
-          type="checkbox" 
-          id={name} 
+    <div className="flex flex-col w-full">
+      <div className="flex items-start gap-2">
+        <input
+          type="checkbox"
           name={name}
           checked={checked}
           onChange={onChange}
-          className="shrink-0 w-5 h-5 bg-white rounded border border-black border-solid" 
+          className="mt-1 w-4 h-4 text-cyan-950 border-gray-300 rounded focus:ring-cyan-500"
         />
-        <label htmlFor={name} className="ml-2 flex-auto underline w-[465px] max-md:max-w-full">
-          I agree to the <span className="text-base font-medium text-teal-700 underline">Terms</span> and <span className="text-base text-teal-700 underline">Conditions</span> as set out by the user agreement
+        <label className="text-sm text-gray-700">
+          I agree to the Terms and Conditions and Privacy Policy
         </label>
       </div>
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && (
+        <span className="mt-1 text-sm text-red-500">{error}</span>
+      )}
     </div>
   );
 }
+
 
 export default CheckboxField;

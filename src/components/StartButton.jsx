@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 function StartButton({
   text,
-  className = "px-8 py-3 text-base font-medium  bg-teal-800 text-white whitespace-nowrap rounded-[100px]",
-  selectedYear, // Receive selectedYear as a prop
+  className,
+  selectedYear,
 }) {
-    
   const navigate = useNavigate();
 
   const handleStartClick = () => {
@@ -18,7 +17,10 @@ function StartButton({
   };
 
   return (
-    <button className={className} onClick={handleStartClick}>
+    <button 
+      className={`px-8 py-3 text-base font-medium bg-teal-800 text-white whitespace-nowrap rounded-[100px] hover:bg-teal-700 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 ${className}`}
+      onClick={handleStartClick}
+    >
       {text}
     </button>
   );

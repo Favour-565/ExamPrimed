@@ -27,7 +27,7 @@ function FAQs() {
       
       
        </div>
-       <h1 className="relative flex justify-center  mt-40 text-4xl text-white max-md:mt-10">FAQs</h1>
+       <h1 className="relative flex justify-center  mt-40 text-4xl text-white min-md- max-md:mt-10 ">FAQs</h1>
       <section className="flex flex-col self-center pb-40  pt-[6rem]  w-full text-lg font-medium max-w-[1000px] min-h-[484px] text-cyan-950 max-md:mt-10 max-md:max-w-full" >
         {faqData.map((faq, index) => (
           <FaqsItem key={index} question={faq.question} />

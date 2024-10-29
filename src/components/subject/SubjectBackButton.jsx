@@ -1,21 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SubjectBackButton() {
+function BackButton() {
   const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate(-1);
-  };
 
   return (
     <button 
-      onClick={handleBackClick}
-      className="self-start absolute ml-[700px] px-8 py-2 bg-[#2F9596] text-white rounded-[100px] max-md:px-5"
+      onClick={() => navigate(-1)}
+      className="px-6 sm:px-8 py-2 sm:py-3 bg-[#2F9596] text-white rounded-[100px] hover:bg-[#267b7c] transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500"
     >
       Back
     </button>
   );
 }
 
-export default SubjectBackButton;
+export default BackButton;

@@ -22,7 +22,7 @@ function ContactUs() {
       <main className="  w-full  max-md:mt-10 max-md:max-w-full" style={{ backgroundImage: `url('/images/examSreen.png')` }}>
 
       
-        <div className="flex justify-around pt-14 pb-52 max-md:flex-col">
+        <div className="flex gap-2 justify-around pt-14 pb-52 max-md:flex-col">
           <ContactInfo />
           <ContactForm />
           

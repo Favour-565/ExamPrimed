@@ -3,7 +3,7 @@ function SubmitButton({ text, icon, className = "", onClick, disabled }) {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`flex justify-center items-center px-16 py-5 mt-8 w-full md:w-[42rem] text-2xl font-semibold whitespace-nowrap rounded-md bg-cyan-950 text-zinc-50 max-md:px-5 
+      className={`flex justify-center items-center  px-16 py-5 mt-8   text-2xl font-semibold whitespace-nowrap rounded-md bg-cyan-950 text-zinc-50 max-md:px-5 
       ${disabled ? 'opacity-70 cursor-not-allowed' : 'hover:bg-cyan-900 transition-colors'} 
       ${className}`}
     >

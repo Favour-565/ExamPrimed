@@ -13,7 +13,7 @@ function Login() {
       />
       <div className="relative w-full min-h-screen flex flex-col">
         <Header />
-        <div className="flex-grow flex items-center justify-center px-4 pb-12 md:pb-0">
+        <div className="flex-grow flex items-center justify-center px-4 sm:px-6 md:px-8 pb-12 md:pb-0">
           <SignInForm />
         </div>
       </div>

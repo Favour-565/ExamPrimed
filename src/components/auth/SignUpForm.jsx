@@ -7,6 +7,8 @@ import Button from './Button';
 import Header from '../common/Header';
 import { Link } from 'react-router-dom';
 
+
+
 const inputFields = [
   { label: 'User Name', type: 'text', name: 'username' },
   { label: 'Email Address', type: 'email', name: 'email' },
@@ -56,15 +58,32 @@ function SignUpForm() {
       navigate('/login');
     }
   };
-
   return (
-    <section className="flex relative flex-col  min-h-[300px] max-md:max-w-full"> {/* reduced height from 400px to 350px */}
-      <img loading="lazy" src="/images/SignupScreen.png" alt="" className="object-cover absolute inset-0 size-full" /> {/* changed object-fit to object-cover */}
-      <Header/>
-      <div className="flex relative flex-col  mt-10 justify-center items-end p-5 w-full max-md:px-4 max-md:max-w-full"> {/* changed items-center to items-end */}
-        <form onSubmit={handleSubmit} className="flex flex-col items-center px-6 py-1 mr-20 max-w-full bg-zinc-50 bg-opacity-80 rounded-[40px] w-[500px] max-md:w-full max-md:px-4 max-md:mr-0"> {/* added mr-20 for right margin */}
-          <h1 className="text-3xl font-semibold text-cyan-950">Sign up</h1>
-          <div className="flex flex-col self-stretch mt-8 text-base text-black text-opacity-50 max-md:max-w-full">
+    <section className="relative flex flex-col min-h-screen w-full">
+      
+      <img 
+        loading="lazy" 
+        src="/images/SignupScreen.png" 
+        alt="" 
+        className="object-cover fixed inset-0 w-full h-full"
+      />
+      
+      
+      <Header />
+
+      
+      <div className="relative flex justify-center md:justify-end px-4 py-8 md:px-8 lg:px-16 w-full min-h-[calc(100vh-64px)]">
+        <form 
+          onSubmit={handleSubmit} 
+          className="flex flex-col w-full max-w-[440px] md:max-w-[500px] bg-zinc-50 bg-opacity-80 rounded-[40px] p-6  md:p-8 mt-10  md:mt-20 md:mr-8 lg:mr-20"
+        >
+         
+          <h1 className="text-2xl md:text-3xl font-semibold text-[#007273] text-center mb-6">
+            Sign up
+          </h1>
+
+          
+          <div className="flex flex-col gap-4 w-full">
             {inputFields.map((field, index) => (
               <InputField 
                 key={index} 
@@ -76,6 +95,7 @@ function SignUpForm() {
                 error={errors[field.name]}
               />
             ))}
+            
             <PasswordField 
               label="Password" 
               name="password"
@@ -83,6 +103,7 @@ function SignUpForm() {
               onChange={handleInputChange}
               error={errors.password}
             />
+            
             <PasswordField 
               label="Confirm Password" 
               name="confirmPassword"
@@ -91,21 +112,34 @@ function SignUpForm() {
               error={errors.confirmPassword}
             />
           </div>
-          <CheckboxField 
-            name="agreeTerms"
-            checked={formData.agreeTerms}
-            onChange={handleInputChange}
-            error={errors.agreeTerms}
-          />
-          <Button label="Sign-Up" type="submit" />
-          <div className="flex gap-1.5 mt-3 max-w-full text-cyan-950 w-[300px]">
-            <p className="grow my-auto text-base font-semibold">Already have an account?</p>
-            <Link to="/login" className=" text-xl font-semibold">Sign In</Link>
+
+          
+          <div className="mt-6">
+            <CheckboxField 
+              name="agreeTerms"
+              checked={formData.agreeTerms}
+              onChange={handleInputChange}
+              error={errors.agreeTerms}
+            />
+          </div>
+
+          <div className="mt-6">
+            <Button label="Sign-Up" type="submit" />
+          </div>
+
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mt-4 text-cyan-950">
+            <p className="text-base font-semibold">Already have an account?</p>
+            <Link 
+              to="/login" 
+              className="text-lg md:text-xl font-semibold hover:text-cyan-800 transition-colors"
+            >
+              Sign In
+            </Link>
           </div>
         </form>
-      </div> 
+      </div>
     </section>
   );
 }
-
 export default SignUpForm;

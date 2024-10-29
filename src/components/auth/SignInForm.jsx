@@ -48,21 +48,25 @@ function SignInForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      
       console.log('Form submitted:', formData);
-     
       navigate('/select-exam');
     }
   };
 
   return (
-    <section className="flex flex-col self-center px-6 py-6 mt-32 ml-96 mb-0 w-[30rem] text-justify bg-zinc-50 bg-opacity-80 rounded-[50px] shadow-[-2px_4px_6px_rgba(0,0,0,0.25)]  max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:mb-2.5">
-      <h1 className="self-center ml-3.5 text-4xl font-semibold text-teal-800">
+    <section className="flex flex-col self-center w-full max-w-[30rem] px-6 py-8 mx-auto 
+      bg-zinc-50 bg-opacity-80 rounded-[50px] shadow-[-2px_4px_6px_rgba(0,0,0,0.25)]
+      md:mt-20 lg:mt-32
+      sm:px-8 sm:w-[90%]
+      md:w-[80%]
+      lg:w-[30rem]">
+      <h1 className="text-center text-3xl md:text-4xl font-semibold text-teal-800">
         Sign In
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col mt-10 text-lg text-black text-opacity-50 max-md:max-w-1/2">
-        <div className="flex flex-col mb-4">
-          <div className="flex items-center px-2.5 py-2.5 rounded-xl shadow-sm bg-zinc-50 min-h-[60px] max-md:max-w-[10rem]">
+      
+      <form onSubmit={handleSubmit} className="flex flex-col mt-auto md:mt-10 w-full">
+        <div className="flex flex-col mb-4 w-full">
+          <div className="flex items-center px-2.5 py-2.5 rounded-xl shadow-sm bg-zinc-50 min-h-[60px] w-full">
             <input
               type="tel"
               id="phoneNumber"
@@ -70,14 +74,15 @@ function SignInForm() {
               value={formData.phoneNumber}
               onChange={handleInputChange}
               placeholder="Phone Number"
-              className="w-full p-2.5 bg-transparent outline-none"
+              className="w-full p-2.5 bg-transparent outline-none text-base md:text-lg text-black text-opacity-50"
               aria-label="Phone Number"
             />
           </div>
           {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
         </div>
-        <div className="flex flex-col mb-4">
-          <div className="flex items-center px-2.5 py-2.5 w-full rounded-xl shadow-sm bg-zinc-50 min-h-[60px] max-md:max-w-full">
+
+        <div className="flex flex-col mb-4 w-full">
+          <div className="flex items-center px-2.5 py-2.5 rounded-xl shadow-sm bg-zinc-50 min-h-[60px] w-full">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -85,7 +90,7 @@ function SignInForm() {
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Password"
-              className="flex-grow p-2.5 bg-transparent outline-none"
+              className="flex-grow p-2.5 bg-transparent outline-none text-base md:text-lg text-black text-opacity-50"
               aria-label="Password"
             />
             <button 
@@ -108,18 +113,29 @@ function SignInForm() {
           </div>
           {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
         </div>
-        <Link to="/forgot-password" className="self-end p-2.5 mt-5 text-xl font text-cyan-950">
+
+        <Link to="/forgot-password" className="self-end p-2.5 mt-3 md:mt-5 text-lg md:text-xl font-medium text-cyan-950">
           Forgot Password?
         </Link>
-        <button type="submit" className="flex gap-2.5 justify-center items-center px-2.5 py-4 mt-8 text-xl font-semibold bg-teal-700 rounded-xl shadow-sm min-h-[74px] text-zinc-50 max-md:max-w-full">
+
+        <button 
+          type="submit" 
+          className="w-full flex gap-2.5 justify-center items-center px-4 py-4 mt-6 md:mt-8 
+            text-lg md:text-xl font-semibold bg-teal-700 rounded-xl shadow-sm 
+            min-h-[60px] md:min-h-[74px] text-zinc-50 
+            hover:bg-teal-600 transition-colors"
+        >
           Sign In
         </button>
       </form>
-      <div className="flex gap-4 self-center mt-5 max-w-full text-cyan-950 w-[332px]">
-        <p className="grow my-auto text-xl font-medium">
+
+      <div className="flex gap-2 md:gap-4 justify-center items-center mt-6 md:mt-8 text-cyan-950">
+        <p className="text-base md:text-xl font-medium">
           Don't have an account?
         </p>
-        <Link to="/sign-up" className="text-xl font-semibold">Sign Up</Link>
+        <Link to="/sign-up" className="text-base md:text-xl font-semibold hover:text-teal-700 transition-colors">
+          Sign Up
+        </Link>
       </div>
     </section>
   );

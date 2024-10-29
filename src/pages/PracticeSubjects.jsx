@@ -1,80 +1,83 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import SubjectBackButton from "../components/subject/SubjectBackButton";
 import SubjectCard from "../components/Subject/SubjectCard";
+import { useSubjects } from "../hooks/useSubject";
 
 function PracticeSubjects() {
-  const [subjects] = useState([
-    { 
-      id: 1,
-      name: "ENGLISH", 
-      image: "/images/practice1.png",
-      path: "/daily-test"
-    },
-    { 
-      id: 2,
-      name: "GENERAL KNOWLEDGE", 
-      image: "/images/practice2.png",
-      path: "/daily-test"
-    },
-  ]);
-
+  const { subjects, loading, error } = useSubjects();
   const navigate = useNavigate();
 
   const handleSubjectClick = (subject) => {
-    
-    navigate(subject.path, { 
-      state: { 
+    navigate('/daily-test', {
+      state: {
         subjectName: subject.name,
-        subjectId: subject.id 
-      } 
+        subjectId: subject.id
+      }
     });
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-700"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-red-50 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold">Error:</strong>
+          <span className="block sm:inline"> {error}</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <main className="flex overflow-hidden relative flex-col min-h-[718px]">
-      <section 
-        className="flex relative flex-col pt-5 pr-20 pb-32 pl-10 w-full max-md:px-5 max-md:pb-24 max-md:max-w-full" 
-        style={{ backgroundImage: `url('/images/SUBJECT SCREEN 7.png')` }}
-      >
+    <main className="min-h-screen bg-cover bg-center relative">
+      <img 
+        src="/images/SUBJECT SCREEN 7.png" 
+        alt="" 
+        className="absolute inset-0 w-full h-full object-cover" 
+      />
+      
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <img 
-          loading="lazy" 
-          src="\images\logo.png" 
+          src="/images/logo.png" 
           alt="Logo" 
-          className="object-contain max-w-full aspect-[2.43] w-[107px]" 
+          className="w-[90px] sm:w-[107px] aspect-[2.43] object-contain" 
         />
-        <div className="flex relative flex-col self-center pt-5 pr-5 pb-12 pl-16 mt-16 mb-0 w-full max-w-[1021px] min-h-[469px] max-md:pl-5 max-md:mt-10 max-md:mb-2.5 max-md:max-w-full">
+        
+        <div className="relative mt-8 sm:mt-12 lg:mt-16 mx-auto max-w-[1021px] rounded-[20px] md:my-52 p-4 sm:p-6 lg:p-8">
           <img 
-            loading="lazy" 
-            src="\images\DIGITAL-SCREEN 1.png" 
+            src="/images/DIGITAL-SCREEN 1.png" 
             alt="" 
-            className="object-cover absolute rounded-[20px] inset-0 size-full" 
+            className="absolute inset-0 w-full h-full object-cover rounded-[20px]" 
           />
-          <div className="flex relative flex-wrap gap-10 items-start self-end max-w-full w-[840px]">
-            <div className="flex-auto self-end mt-8 max-md:max-w-full">
-              <div className="flex gap-5 max-md:flex-col">
-                <div className="flex flex-col w-[79%] max-md:ml-0 max-md:w-full">
-                  <h1 className="self-stretch my-auto ml-10 text-4xl font-semibold text-teal-700 tracking-[18px] max-md:mt-10 max-md:max-w-full">
-                    SELECT SUBJECT
-                  </h1>
-                </div>
-              </div>
+
+          <div className="relative z-10">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8 sm:mb-12">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-teal-700 tracking-[10px] sm:tracking-[14px] lg:tracking-[18px]">
+                SELECT SUBJECT
+              </h1>
+              <SubjectBackButton />
             </div>
-            <SubjectBackButton />
-          </div>
-          <div className="flex relative flex-wrap gap-3 self-start mt-20 text-xs font-bold text-zinc-50 max-md:mt-10">
-            {subjects.map((subject) => (
-              <SubjectCard
-                key={subject.id}
-                name={subject.name} 
-                image={subject.image}
-                onClick={() => handleSubjectClick(subject)}
-              />
-            ))}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {subjects.map((subject) => (
+                <SubjectCard
+                  key={subject.id}
+                  subject={subject}
+                  onClick={handleSubjectClick}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

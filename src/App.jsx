@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 
 
+
+
 import LandingPage from "./pages/LandingPage";
 import SignupPage from "./pages/SignupPage";
 import Login from "./pages/Login";
@@ -31,6 +33,8 @@ import SelectYear from "./pages/SelectYear";
 import TestPage from "./pages/TestPage";
 import Practice from "./pages/Practice";
 import DailyTest from "./pages/DailyTest";
+
+
 
 
 const routesConfig = [
@@ -89,6 +93,7 @@ function App() {
     }
   }, [pathname]);
 
+  
   return (
     <Routes>
       {routesConfig.map(({ path, element: Element }) => (

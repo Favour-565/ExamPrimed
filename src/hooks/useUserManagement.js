@@ -11,7 +11,7 @@ export const useUserManagement = () => {
     setError(null);
     
     try {
-      // Replace this with your actual API call
+      
       const response = await fetch('/api/user/profile', {
         method: 'PUT',
         headers: {
@@ -39,17 +39,17 @@ export const useUserManagement = () => {
     setError(null);
 
     try {
-      // Replace this with your actual logout API call
+      
       await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });
 
-      // Clear local storage/session storage if needed
+      
       localStorage.removeItem('user');
       sessionStorage.clear();
 
-      // Redirect to home page
+      
       navigate('/');
     } catch (err) {
       setError(err.message);

@@ -3,28 +3,32 @@ import Header from '../components/common/Header';
 import MainContent from '../components/instructions/MainContent';
 import Footer from '../components/common/Footer';
 
-
 function Instructions() {
   return (
-    <div className="flex overflow-hidden flex-col">
-      <div className="flex relative flex-col w-full font-semibold text-white min-h-[240px] max-md:max-w-full">
-        <img
-          loading="lazy"
-          src="\images\instruction frame.png"
-          alt="Background image"
-          className="object-cover absolute inset-0 size-full "
-          
+    <div className="flex flex-col min-h-screen overflow-hidden">
+      <div className="relative flex flex-col w-full font-semibold text-white min-h-[240px]">
+        <img 
+          loading="lazy" 
+          src="/images/instruction frame.png" 
+          alt="Background image" 
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <h1 className='absolute mt-[12rem] ml-[33rem] text-3xl font-semibold  max-md:mt-10 '>INSTRUCTIONS</h1>
-      <Header/>
-      
-        
-     </div>
-      <div className='flex justify-center' style={{ backgroundImage: `url('/images/examSreen.png')` }}>
-      <MainContent/>
+        <Header />
+        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-3xl font-semibold
+          lg:mt-48
+          md:mt-36
+          sm:mt-24
+          mt-20">
+          INSTRUCTIONS
+        </h1>
       </div>
       
-      <Footer/>
+      <div className="flex-grow flex justify-center bg-cover bg-center" 
+        style={{ backgroundImage: `url('/images/examScreen.png')` }}>
+        <MainContent />
+      </div>
+      
+      <Footer />
     </div>
   );
 }
