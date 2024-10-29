@@ -8,28 +8,24 @@ import Header from "../components/common/Header";
 import SubmitButton from "../components/userProfile/SubmitButton";
 import useAuthStore from "../data/stores/authStore";
 import { useNavigate } from "react-router-dom";
+import { apiCall } from "../data/useFetcher";
+import useErrorStore from "../data/stores/errorStore";
+import { toast } from "react-toastify";
+import Button from "../components/auth/Button";
 
 function Profile() {
   const {
-    updateUserProfile,
+    // updateUserProfile,
     logout: logOutMock,
     isLoading,
     error,
   } = useUserManagement();
-  const [profileData, setProfileData] = useState({
-    name: "Mark Obidiegwu",
-    email: "markobidiegwu@gmail.com",
-    phone: "+234 0812 345 6789",
-    newName: "",
-    newPhone: "",
-    totalCoins: 0,
-    coinHistory: [],
-  });
+  const [profileData, setProfileData] = useState({});
   const [activeModal, setActiveModal] = useState(null);
-  const [updateStatus, setUpdateStatus] = useState({
-    success: false,
-    message: "",
-  });
+  // const [updateStatus, setUpdateStatus] = useState({
+  //   success: false,
+  //   message: "",
+  // });
 
   useEffect(() => {
     const mockCoinHistory = [
@@ -56,23 +52,33 @@ function Profile() {
       },
     ];
 
-    setProfileData((prev) => ({
-      ...prev,
-      totalCoins: 1300,
-      coinHistory: mockCoinHistory,
-    }));
+    // setProfileData((prev) => ({
+    //   ...prev,
+    //   totalCoins: 1300,
+    //   coinHistory: mockCoinHistory,
+    // }));
   }, []);
 
   const actionItems = [
     {
       icon: "/Icons/User.png",
-      text: "Enter Your Name",
-      action: () => setActiveModal("name"),
+      text: "Enter Your First Name",
+      action: () => setActiveModal("firstName"),
+    },
+    {
+      icon: "/Icons/User.png",
+      text: "Enter Your Last Name",
+      action: () => setActiveModal("lastName"),
+    },
+    {
+      icon: "/Icons/uiw_mail.png",
+      text: "Email Address",
+      action: () => setActiveModal("email"),
     },
     {
       icon: "/vectors/number.png",
       text: "Mobile Number",
-      action: () => setActiveModal("phone"),
+      action: () => setActiveModal("telephone"),
     },
     {
       icon: "/vectors/invite friends.png",
@@ -112,48 +118,85 @@ function Profile() {
       },
     },
   ];
+  const { logout, isAuth, user, getCoinHistory, coinHistory, setUser } =
+      useAuthStore(),
+    navigate = useNavigate(),
+    [loading, setLoading] = useState(null),
+    { returnErrors } = useErrorStore(),
+    handleSubmit = async () => {
+      if (!activeModal) return;
+      if (!profileData?.[activeModal]) {
+        // setUpdateStatus({
+        //   success: false,
+        //   message: "No changes to update",
+        // });
+        return toast.info("No changes to update");
+      }
 
-  const handleSubmit = async () => {
-    if (!profileData.newName && !profileData.newPhone) {
-      setUpdateStatus({
-        success: false,
-        message: "No changes to update",
-      });
-      return;
-    }
+      setLoading(activeModal);
 
-    try {
-      const updatedData = await updateUserProfile({
-        name: profileData.newName || profileData.name,
-        phone: profileData.newPhone || profileData.phone,
+      let { response, errArr, errMsg } = await apiCall({
+        type: "put",
+        url: `/api/v1/user`,
+        data: { [activeModal]: profileData?.[activeModal] },
       });
+      // console.log({ response, errArr, errMsg });
+      if (errArr) {
+        setLoading(false);
+        return returnErrors(errArr);
+      }
+      if (errMsg) {
+        setLoading(false);
+        return toast.error(errMsg);
+      }
+      setLoading(false);
+      if (response) {
+        setProfileData({});
+        setActiveModal(null);
+        setUser(response);
+        return;
+      }
+      setLoading(false);
 
-      setProfileData((prev) => ({
-        ...prev,
-        name: profileData.newName || prev.name,
-        phone: profileData.newPhone || prev.phone,
-        newName: "",
-        newPhone: "",
-      }));
+      // try {
+      //   const updatedData = await updateUserProfile({
+      //     name: profileData.newName || profileData.name,
+      //     phone: profileData.newPhone || profileData.phone,
+      //   });
 
-      setUpdateStatus({
-        success: true,
-        message: "Profile updated successfully",
-      });
-      setActiveModal(null);
-    } catch (err) {
-      setUpdateStatus({
-        success: false,
-        message: error || "Failed to update profile",
-      });
-    }
-  };
-  let { logout, isAuth } = useAuthStore(),
-    navigate = useNavigate();
+      //   setProfileData((prev) => ({
+      //     ...prev,
+      //     name: profileData.newName || prev.name,
+      //     phone: profileData.newPhone || prev.phone,
+      //     newName: "",
+      //     newPhone: "",
+      //   }));
+
+      //   setUpdateStatus({
+      //     success: true,
+      //     message: "Profile updated successfully",
+      //   });
+      //   setActiveModal(null);
+      // } catch (err) {
+      //   setUpdateStatus({
+      //     success: false,
+      //     message: error || "Failed to update profile",
+      //   });
+      // }
+    };
 
   useEffect(() => {
     if (!isAuth) navigate("/login");
   }, [isAuth, navigate]);
+
+  useEffect(() => {
+    apiCall({
+      type: "get",
+      url: "/api/v1/history",
+      getter: (d) => getCoinHistory(d),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -161,10 +204,11 @@ function Profile() {
       await logOutMock();
       navigate("/");
     } catch (err) {
-      setUpdateStatus({
-        success: false,
-        message: error || "Failed to logout",
-      });
+      // setUpdateStatus({
+      //   success: false,
+      //   message: error || "Failed to logout",
+      // });
+      toast.info(error || "Failed to logout");
     }
   };
   const handleDeleteAccount = () => {
@@ -196,7 +240,7 @@ function Profile() {
 
               <div className="flex flex-col lg:col-span-8">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-                  {actionItems.slice(0, 2).map((item, index) => (
+                  {actionItems.slice(0, 4).map((item, index) => (
                     <div
                       key={index}
                       onClick={item.action}
@@ -220,7 +264,7 @@ function Profile() {
                 />
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-                  {actionItems.slice(2, 4).map((item, index) => (
+                  {actionItems.slice(4, 6).map((item, index) => (
                     <div
                       key={index}
                       onClick={item.action}
@@ -236,7 +280,7 @@ function Profile() {
                 </div>
 
                 <div className="mt-4 grid grid-cols-1 gap-4 md:mt-6 md:grid-cols-2 md:gap-6">
-                  {actionItems.slice(4).map((item, index) => (
+                  {actionItems.slice(6).map((item, index) => (
                     <div
                       key={index}
                       onClick={item.action}
@@ -264,18 +308,43 @@ function Profile() {
         </div>
       </section>
 
-      {activeModal === "name" && (
+      {["lastName", "firstName", "email", "telephone"]?.includes(
+        activeModal,
+      ) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
           <div className="w-full max-w-md rounded-lg bg-white p-6">
-            <h3 className="mb-4 text-xl font-semibold">Update Name</h3>
+            <h3 className="mb-4 text-xl font-semibold">
+              Update{" "}
+              {activeModal === "email"
+                ? "Email Address"
+                : activeModal === "telephone"
+                  ? "Phone Number"
+                  : "Name"}
+            </h3>
             <input
-              type="text"
-              value={profileData.newName}
-              onChange={(e) =>
-                setProfileData((prev) => ({ ...prev, newName: e.target.value }))
+              type={
+                activeModal === "email"
+                  ? "email"
+                  : activeModal === "telephone"
+                    ? "tel"
+                    : "text"
               }
+              value={profileData?.[activeModal] || user?.[activeModal]}
+              onChange={(e) =>
+                setProfileData((prev) => ({
+                  ...prev,
+                  [activeModal]: e.target.value,
+                }))
+              }
+              readOnly={activeModal === "telephone"}
               className="mb-4 w-full rounded border p-2"
-              placeholder="Enter new name"
+              placeholder={
+                activeModal === "email"
+                  ? "Enter new name"
+                  : activeModal === "telephone"
+                    ? "Enter new phone number"
+                    : "Enter new email address"
+              }
             />
             <div className="flex justify-end gap-4">
               <button
@@ -284,12 +353,18 @@ function Profile() {
               >
                 Cancel
               </button>
-              <button
+              {/* <button
                 onClick={handleSubmit}
                 className="rounded bg-cyan-950 px-4 py-2 text-white"
               >
                 Save
-              </button>
+              </button> */}
+              <Button
+                label={"Save"}
+                onClick={handleSubmit}
+                loading={loading && loading === activeModal}
+                className="rounded bg-cyan-950 px-4 py-2 text-white"
+              />
             </div>
           </div>
         </div>
@@ -362,7 +437,7 @@ function Profile() {
               <div className="text-lg">
                 Current Balance:{" "}
                 <span className="font-bold text-cyan-950">
-                  {profileData.totalCoins} coins
+                  {user?.triviaPoints} coins
                 </span>
               </div>
             </div>
@@ -378,28 +453,31 @@ function Profile() {
                   </tr>
                 </thead>
                 <tbody>
-                  {profileData.coinHistory.map((transaction, index) => (
+                  {coinHistory?.docs?.map((transaction, index) => (
                     <tr key={index} className="border-t">
                       <td className="px-4 py-3">
-                        {new Date(transaction.date).toLocaleDateString()}
+                        {new Date(transaction?.createdAt).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3">
-                        {transaction.type === "purchase"
-                          ? `Purchased (${transaction.price})`
-                          : transaction.description}
+                        {
+                          // transaction?.type === "credit"
+                          //   ? `Purchased (${transaction?.price})`
+                          //   :
+                          transaction?.description
+                        }
                       </td>
                       <td
                         className={`px-4 py-3 text-right ${
-                          transaction.type === "purchase"
+                          transaction?.type === "credit"
                             ? "text-green-600"
                             : "text-red-600"
                         }`}
                       >
-                        {transaction.type === "purchase" ? "+" : "-"}
-                        {transaction.amount}
+                        {transaction?.type === "credit" ? "+" : "-"}
+                        {transaction?.coins}
                       </td>
                       <td className="px-4 py-3 text-right font-medium">
-                        {transaction.balance}
+                        {transaction?.coinsAfter}
                       </td>
                     </tr>
                   ))}

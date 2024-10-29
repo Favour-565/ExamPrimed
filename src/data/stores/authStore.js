@@ -53,6 +53,15 @@ const AuthStore = (set) => ({
       "getUser",
     );
   },
+  getCoinHistory: (payload) => {
+    set(
+      {
+        coinHistory: payload?.data || payload,
+      },
+      false,
+      "getCoinHistory",
+    );
+  },
   getUserFail: () => {
     set({ isAuth: false, loading: false });
   },
