@@ -59,6 +59,7 @@ function Profile() {
     { 
       icon: "/Icons/User.png", 
       text: " Name",
+      text: " Name",
       action: () => setActiveModal('name')
     },
     { 

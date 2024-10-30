@@ -39,6 +39,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 
 
 
+
+
 const routesConfig = [
   { path: "/", element: LandingPage, meta: { title: "", description: "" } },
   { path: "/sign-up", element: SignupPage, meta: { title: "", description: "" } },
@@ -65,6 +67,7 @@ const routesConfig = [
   { path: "/daily-test", element: DailyTest, meta: { title: "", description: "" } },
   { path: "/practice-subject", element: PracticeSubjects, meta: { title: "", description: "" } },
   { path: "/forgot-password", element: ForgotPassword , meta: { title: "", description: "" } },
+  
 ];
 
 function App() {
