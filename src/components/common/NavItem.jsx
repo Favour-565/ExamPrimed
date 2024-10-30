@@ -44,8 +44,8 @@ const NavItem = ({ item }) => {
                           onClick={() => {
                             if (dropdownItem?.label === "Logout") {
                               setIsDropdownOpen(!isDropdownOpen);
+                              handleLogout();
                             }
-                            handleLogout();
                           }}
                           key={index}
                           to={dropdownItem.to}
@@ -59,8 +59,8 @@ const NavItem = ({ item }) => {
                         onClick={() => {
                           if (dropdownItem?.label === "Logout") {
                             setIsDropdownOpen(!isDropdownOpen);
+                            handleLogout();
                           }
-                          handleLogout();
                         }}
                         key={index}
                         to={dropdownItem.to}
