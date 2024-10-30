@@ -33,6 +33,8 @@ import SelectYear from "./pages/SelectYear";
 import TestPage from "./pages/TestPage";
 import Practice from "./pages/Practice";
 import DailyTest from "./pages/DailyTest";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 
 
@@ -62,6 +64,7 @@ const routesConfig = [
   { path: "/test", element: TestPage, meta: { title: "", description: "" } },
   { path: "/daily-test", element: DailyTest, meta: { title: "", description: "" } },
   { path: "/practice-subject", element: PracticeSubjects, meta: { title: "", description: "" } },
+  { path: "/forgot-password", element: ForgotPassword , meta: { title: "", description: "" } },
 ];
 
 function App() {

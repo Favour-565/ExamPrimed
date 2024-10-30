@@ -58,7 +58,7 @@ function Profile() {
   const actionItems = [
     { 
       icon: "/Icons/User.png", 
-      text: "Enter Your Name",
+      text: " Name",
       action: () => setActiveModal('name')
     },
     { 

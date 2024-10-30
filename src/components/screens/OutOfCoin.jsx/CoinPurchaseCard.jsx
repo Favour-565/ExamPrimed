@@ -1,7 +1,4 @@
 import React from "react";
-
-
-
 import PurchaseButton from "./PurchaseBtn";
 
 function CoinPurchaseCard() {
