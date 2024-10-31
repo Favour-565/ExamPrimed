@@ -175,7 +175,7 @@ function SignInForm() {
         </div>
 
         <Link
-          to="/forgot-password"
+          to="/set-password"
           className="mt-3 self-end p-2.5 text-lg font-medium text-cyan-950 md:mt-5 md:text-xl"
         >
           Forgot Password?

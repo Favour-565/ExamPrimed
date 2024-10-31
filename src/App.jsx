@@ -34,6 +34,8 @@ import TestPage from "./pages/TestPage";
 import Practice from "./pages/Practice";
 import DailyTest from "./pages/DailyTest";
 import ForgotPassword from "./pages/ForgotPassword";
+import SetPassword from "./pages/SetPassword";
+
 
 
 
@@ -67,6 +69,7 @@ const routesConfig = [
   { path: "/daily-test", element: DailyTest, meta: { title: "", description: "" } },
   { path: "/practice-subject", element: PracticeSubjects, meta: { title: "", description: "" } },
   { path: "/forgot-password", element: ForgotPassword , meta: { title: "", description: "" } },
+  { path: "/set-password", element: SetPassword , meta: { title: "", description: "" } },
   
 ];
 
