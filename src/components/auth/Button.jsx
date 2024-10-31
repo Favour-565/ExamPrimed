@@ -38,7 +38,7 @@ export const ModalContainer = ({ handleClose, children, height }) => {
         <div
           className={`w-full max-w-md rounded-lg bg-white shadow-sm transition-all duration-700 ease-in-out ${
             height && "h-3/4"
-          } noScroll overflow-y-scroll p-4`}
+          } noScroll h overflow-y-hidden p-4`}
         >
           {" "}
           <div className="flex justify-end">
@@ -47,6 +47,14 @@ export const ModalContainer = ({ handleClose, children, height }) => {
           {children}
         </div>
       </div>
+    </div>
+  );
+};
+
+export const Loader = () => {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-teal-700"></div>
     </div>
   );
 };

@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import QuestionCard from '../components/test/questionCard';
+import { useEffect, useState } from "react";
+import QuestionCard from "../components/test/questionCard";
+import useErrorStore from "../data/stores/errorStore";
+import { useLocation, useNavigate } from "react-router-dom";
+import { apiCall } from "../data/useFetcher";
+import { toast } from "react-toastify";
+import { Loader } from "../components/auth/Button";
 
 function TestPage() {
   const [quizResults, setQuizResults] = useState(null);
@@ -8,27 +13,75 @@ function TestPage() {
     setQuizResults(results);
   };
 
+  const [loading, setLoading] = useState(true),
+    { returnErrors } = useErrorStore(),
+    { state } = useLocation(),
+    [newQuestions, setNewQuestions] = useState(null),
+    navigate = useNavigate(),
+    handleSubmit = async (e) => {
+      e?.preventDefault();
+      let { response, errArr, errMsg } = await apiCall({
+        type: "get",
+        url: `/api/v1/exam?exam=new${state?.year ? `&year=${state?.year?._id}` : ""}${state?.examType ? `&examType=${state?.examType?._id}` : ""}${state?.subject ? `&subject=${state?.subject?._id}` : ""}`,
+        noToast: true,
+      });
+      if (errArr) {
+        setLoading(false);
+        navigate("/pricing");
+        return returnErrors(errArr);
+      }
+      if (errMsg) {
+        setLoading(false);
+        navigate("/pricing");
+        return toast.error(errMsg);
+      }
+      setLoading(false);
+      if (response) {
+        setNewQuestions(response?.data || response);
+        return;
+      }
+      setLoading(false);
+    };
+
+  useEffect(() => {
+    if (!state) navigate("/");
+    if (state) handleSubmit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, navigate]);
+
+  // console.log({ newQuestions });
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <img 
-        src="/images/test screen.png" 
-        alt="background" 
-        className="absolute inset-0 w-full h-full object-cover"
+      <img
+        src="/images/test screen.png"
+        alt="background"
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      
-      <img 
-        src="/images/logo.png" 
-        alt="Logo" 
-        className="absolute  left-4 w-16 md:w-24 h-auto z-10"
+
+      <img
+        src="/images/logo.png"
+        alt="Logo"
+        className="absolute left-4 z-10 h-auto w-16 cursor-pointer md:w-24"
+        onClick={() => navigate("/")}
       />
-      
-      <div className="relative inset-0 flex flex-col items-center justify-center   px-4 md:px-10  md:mt-24 lg:px-16">
-        <div className="p-4 md:p-8 mt-8 bg-white bg-opacity-90 rounded-lg shadow-lg w-full max-w-2xl md:max-w-3xl lg:max-w-5xl">
-          {!quizResults ? (
-            <QuestionCard onQuizComplete={handleQuizComplete} />
+
+      <div className="relative inset-0 flex flex-col items-center justify-center px-4 md:mt-24 md:px-10 lg:px-16">
+        <div className="mt-8 w-full max-w-2xl rounded-lg bg-white bg-opacity-90 p-4 shadow-lg md:max-w-3xl md:p-8 lg:max-w-5xl">
+          {loading ? (
+            <Loader />
+          ) : !quizResults ? (
+            <QuestionCard
+              onQuizComplete={handleQuizComplete}
+              questions={newQuestions?.questions}
+              duration={newQuestions?.duration}
+              type={newQuestions?._id}
+            />
           ) : (
             <div className="text-center">
-              <h2 className="text-lg md:text-2xl font-bold mb-4">Quiz Results</h2>
+              <h2 className="mb-4 text-lg font-bold md:text-2xl">
+                Quiz Results
+              </h2>
               <p>Total Questions: {quizResults.totalQuestions}</p>
               <p>Correct Answers: {quizResults.correctAnswers}</p>
               <p>Incorrect Answers: {quizResults.incorrectAnswers}</p>

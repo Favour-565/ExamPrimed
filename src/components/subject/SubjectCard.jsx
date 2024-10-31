@@ -13,7 +13,7 @@ function SubjectCard({ subject, onClick }) {
       <img
         loading="lazy"
         src={subject?.image}
-        alt={`${subject?.name} background`}
+        alt={`${subject?.title || subject?.name} background`}
         className="absolute inset-0 h-full w-full object-cover"
         onError={(e) => {
           e.target.src = "/images/subject-placeholder.png";

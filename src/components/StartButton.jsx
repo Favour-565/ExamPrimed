@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useLocation, useNavigate } from "react-router-dom";
+import useAuthStore from "../data/stores/authStore";
 
 function StartButton({ text, className, selectedYear }) {
   const navigate = useNavigate(),
-    { state } = useLocation();
+    { state } = useLocation(),
+    { isAuth } = useAuthStore();
 
   const handleStartClick = () => {
     if (selectedYear) {
-      navigate("/test", {
+      navigate(isAuth ? "/test" : "/login", {
         state: {
           ...state,
           year: selectedYear,
