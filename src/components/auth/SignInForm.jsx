@@ -105,6 +105,7 @@ function SignInForm() {
               placeholder="Phone Number"
               className="w-full bg-transparent p-2.5 text-base text-black text-opacity-50 outline-none md:text-lg"
               aria-label="Phone Number"
+              maxLength={11}
             />
           </div>
           {errors.telephone && (

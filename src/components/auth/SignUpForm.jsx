@@ -15,7 +15,7 @@ const inputFields = [
   { label: "First Name", type: "text", name: "firstName" },
   { label: "Last Name", type: "text", name: "lastName" },
   { label: "Email Address", type: "email", name: "email" },
-  { label: "Phone Number", type: "tel", name: "telephone" },
+  { label: "Phone Number", type: "tel", name: "telephone", maxLength: 11 },
 ];
 
 function SignUpForm() {
@@ -126,6 +126,7 @@ function SignUpForm() {
                 value={formData[field.name]}
                 onChange={handleInputChange}
                 error={errors[field.name]}
+                maxLength={field?.maxLength}
               />
             ))}
 

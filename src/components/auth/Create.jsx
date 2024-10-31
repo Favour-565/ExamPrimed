@@ -71,16 +71,16 @@ const Create = () => {
     setLoading(true);
     try {
       // Replace with your actual API call
-      const response = await fetch('/api/v1/user/set-password-request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/v1/user/set-password-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email }),
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to send reset email');
+        throw new Error(data.message || "Failed to send reset email");
       }
 
       toast.success("Reset token has been sent to your email");
@@ -99,9 +99,9 @@ const Create = () => {
     setLoading(true);
     try {
       // Replace with your actual API call
-      const response = await fetch('/api/v1/user/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/v1/user/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: formData.email,
           token: formData.token,
@@ -110,13 +110,13 @@ const Create = () => {
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to reset password');
+        throw new Error(data.message || "Failed to reset password");
       }
 
       toast.success("Password successfully reset");
-      navigate('/reset-password');
+      navigate("/reset-password");
     } catch (error) {
       toast.error(error.message);
     } finally {
