@@ -239,6 +239,11 @@ function Profile() {
       url: "/api/v1/history",
       getter: (d) => getCoinHistory(d),
     });
+    apiCall({
+      type: "get",
+      url: "/api/v1/user",
+      getter: (d) => setUser(d),
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

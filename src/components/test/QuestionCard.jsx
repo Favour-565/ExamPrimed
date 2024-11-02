@@ -270,7 +270,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
                 isSelected?.answer === option?._id ||
                 answerArr?.find((it) => it?.question === currentQuestion?._id)
                   ?.option === option?._id
-                  ? "border-blue-500"
+                  ? "ring-2 ring-teal-600"
                   : ""
               }`}
               style={{
