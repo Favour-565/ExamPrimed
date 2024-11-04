@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import Header from "../components/common/Header";
 import PricingPlan from "../components/PricingPlan";
 import { usePlanStore } from "../data/stores/loggerStore";
+import { apiCall } from "../data/useFetcher";
 
 const pricingPlans = [
   {
@@ -38,7 +40,16 @@ const pricingPlans = [
 ];
 
 function PricingPage() {
-  let { data } = usePlanStore();
+  let { data, getLogger } = usePlanStore();
+
+  useEffect(() => {
+    apiCall({
+      type: "get",
+      url: "/api/v1/plan",
+      getter: (d) => getLogger(d),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <section
       className="flex min-h-screen flex-col overflow-hidden bg-cover pb-20"

@@ -46,7 +46,8 @@ function SubjectSelection() {
           loading="lazy"
           src="/images/logo.png"
           alt="Logo"
-          className="aspect-[2.43] w-[107px] max-w-full object-contain"
+          className="aspect-[2.43] w-[107px] max-w-full cursor-pointer object-contain"
+          onClick={() => navigate("/")}
         />
         <div className="relative mb-0 mt-16 flex min-h-[469px] w-full max-w-[1021px] flex-col self-center pb-12 pl-16 pr-5 pt-5 max-md:mb-2.5 max-md:mt-10 max-md:max-w-full max-md:pl-5">
           <img

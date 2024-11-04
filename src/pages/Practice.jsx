@@ -41,7 +41,10 @@ function Practice() {
       <div className="mx-auto w-full max-w-[1300px] px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <header className="relative flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center space-x-4">
+          <div
+            className="flex cursor-pointer items-center space-x-4"
+            onClick={() => navigate("/")}
+          >
             <img
               src="/images/logo (2).svg"
               alt="Logo"
