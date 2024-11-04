@@ -63,7 +63,8 @@ function PracticeSubjects() {
         <img
           src="/images/logo.png"
           alt="Logo"
-          className="aspect-[2.43] w-[90px] object-contain sm:w-[107px]"
+          className="aspect-[2.43] w-[90px] cursor-pointer object-contain sm:w-[107px]"
+          onClick={() => navigate("/")}
         />
 
         <div className="relative mx-auto mt-8 max-w-[1021px] rounded-[20px] p-4 sm:mt-12 sm:p-6 md:my-52 lg:mt-16 lg:p-8">
