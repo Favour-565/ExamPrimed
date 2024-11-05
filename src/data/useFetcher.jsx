@@ -5,6 +5,7 @@ import useAuthStore from "./stores/authStore";
 import useErrorStore from "./stores/errorStore";
 import {
   useExamTypeStore,
+  useLeaderboardStore,
   usePlanStore,
   useSubjectStore,
   useYearStore,
@@ -107,6 +108,7 @@ const useGenFetcher = () => {
   let { getErrorText, clearErrors } = useErrorStore(),
     { getUser, getUserFail, getUserLoading } = useAuthStore(),
     examType = useExamTypeStore(),
+    leaderboard = useLeaderboardStore(),
     subjects = useSubjectStore(),
     years = useYearStore(),
     plans = usePlanStore(),
@@ -122,6 +124,11 @@ const useGenFetcher = () => {
           // console.log({ res: res?.data });
           if (!res?.data?.data?.isAdmin) {
             getUser(res.data);
+            apiCall({
+              type: "get",
+              url: "/api/v1/exam/leaderboard",
+              getter: (d) => leaderboard?.getLogger(d),
+            });
           } else {
             getUserFail();
             getErrorText("Unauthorized User, Access denied");

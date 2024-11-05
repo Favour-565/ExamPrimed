@@ -1,17 +1,25 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 
-function LeaderBoardItem({ name, points, rank, avatar }) {
+function LeaderBoardItem({ name, points, rank, avatar, user }) {
   return (
-    <article className="flex relative flex-wrap gap-5 justify-between bg-[#015758] px-10 py-1 mt-5 w-full  rounded-md shadow-[0px_4px_6px_rgba(0,0,0,0.25)]  max-md:px-5 max-md:max-w-full">
-      <div className="flex gap-10 text-2xl font-semibold text-white whitespace-nowrap">
-        <img loading="lazy" src={avatar} alt={`${name}'s avatar`} className="object-contain shrink-0 rounded-full aspect-square w-[60px]" />
-        <div className="my-auto">{name}</div>
-      </div>
-      <div className="flex gap-5 my-auto text-xl font-medium text-black">
-        <div className="gap-2.5 self-stretch px-14 py-2.5 rounded-xl bg-zinc-50 min-h-[44px] max-md:px-5">
-          {points} Points
+    <article className="relative mt-5 flex w-full flex-wrap justify-between gap-5 rounded-md bg-[#015758] px-10 py-1 shadow-[0px_4px_6px_rgba(0,0,0,0.25)] max-md:max-w-full max-md:px-5">
+      <div className="flex gap-10 whitespace-nowrap text-2xl font-semibold text-white">
+        <img
+          loading="lazy"
+          src={user?.user?.image?.url || avatar}
+          alt={`${user?.user?.lastName || name || ""}'s avatar`}
+          className="aspect-square w-[60px] shrink-0 rounded-full object-contain"
+        />
+        <div className="my-auto">
+          {name}
+          {user?.user?.firstName} {user?.user?.lastName}
         </div>
-        <div className="gap-2.5 self-stretch px-9 py-2.5 whitespace-nowrap rounded-xl bg-zinc-50 min-h-[44px] max-md:px-5">
+      </div>
+      <div className="my-auto flex gap-5 text-xl font-medium text-black">
+        <div className="min-h-[44px] gap-2.5 self-stretch rounded-xl bg-zinc-50 px-14 py-2.5 max-md:px-5">
+          {user?.totalScore || points} Points
+        </div>
+        <div className="min-h-[44px] gap-2.5 self-stretch whitespace-nowrap rounded-xl bg-zinc-50 px-9 py-2.5 max-md:px-5">
           {rank}
         </div>
       </div>

@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ResultCard from "../components/Award/ResultCard";
 import ActionBtn from "../components/Award/ActionBtn";
 import Header from "../components/common/Header";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import useAuthStore from "../data/stores/authStore";
 
 function Award() {
   const location = useLocation();
@@ -14,14 +16,15 @@ function Award() {
       incorrectAnswers: 0,
       scoreAccuracy: 0,
     },
-    { width, height } = useWindowSize();
+    { width, height } = useWindowSize(),
+    { user } = useAuthStore();
 
   const handleReviewAnswers = () => {
     navigate("/review-answers", { state: { quizResults } });
   };
 
   const handleShareScore = () => {
-    const scoreMessage = `I scored ${quizResults.scoreAccuracy}% on the quiz! 🎉`;
+    const scoreMessage = `I scored ${quizResults?.scoreAccuracy}% on the quiz! 🎉`;
     navigator.clipboard
       .writeText(scoreMessage)
       .then(() => {
@@ -32,10 +35,14 @@ function Award() {
       });
   };
 
+  useEffect(() => {
+    if (!location?.state) navigate("/");
+  }, [location?.state, navigate]);
+
   return (
     <main className="relative mt-14 flex min-h-screen flex-col overflow-hidden pb-32 max-md:pb-24">
       {quizResults?.scoreAccuracy &&
-      Number(quizResults.scoreAccuracy).toFixed(0) >= 60 ? (
+      Number(quizResults?.scoreAccuracy).toFixed(0) >= 60 ? (
         <Confetti width={width} height={height} />
       ) : null}
       <img
@@ -58,17 +65,17 @@ function Award() {
           <div className="ml-5 flex w-[39%] flex-col max-md:ml-0 max-md:w-full">
             <div className="relative mt-24 flex w-full flex-col items-start font-semibold text-zinc-50 max-md:mt-10 max-md:max-w-full">
               <h1 className="gap-2.5 self-stretch whitespace-nowrap p-2.5 text-4xl">
-                {quizResults.scoreAccuracy &&
+                {quizResults?.scoreAccuracy &&
                 Number(quizResults?.scoreAccuracy).toFixed(0) >= 60
                   ? "HURRAY!!!"
                   : "OPPS!!!"}
               </h1>
               <p className="mt-2.5 w-[424px] gap-2.5 self-stretch p-2.5 text-xl max-md:max-w-full">
-                {quizResults.scoreAccuracy &&
+                {quizResults?.scoreAccuracy &&
                 Number(quizResults?.scoreAccuracy).toFixed(0) >= 60
                   ? "Congratulations,"
                   : "Hey,"}{" "}
-                Bola Oluchi Mohammed!{" "}
+                {user?.firstName} {user?.lastName}!{" "}
                 <p>
                   You Performed{" "}
                   {quizResults?.scoreAccuracy &&
@@ -84,12 +91,14 @@ function Award() {
 
               <div className="mt-12 flex w-[381px] max-w-full gap-4 text-base text-neutral-900 max-md:mt-10">
                 <ResultCard
-                  value={`${quizResults.scoreAccuracy}%`}
+                  value={`${quizResults?.scoreAccuracy}%`}
                   label="Score Accuracy"
                   valueColor="text-green-400"
                 />
                 <ResultCard
-                  value={quizResults.totalQuestions.toString().padStart(2, "0")}
+                  value={quizResults?.totalQuestions
+                    ?.toString()
+                    .padStart(2, "0")}
                   label="Total Questions"
                   valueColor="text-indigo-500"
                 />
@@ -97,14 +106,16 @@ function Award() {
 
               <div className="mt-4 flex w-[380px] max-w-full gap-4 text-base text-neutral-900">
                 <ResultCard
-                  value={quizResults.correctAnswers.toString().padStart(2, "0")}
+                  value={quizResults?.correctAnswers
+                    ?.toString()
+                    ?.padStart(2, "0")}
                   label="Correct Answers"
                   valueColor="text-indigo-500"
                 />
                 <ResultCard
-                  value={quizResults.incorrectAnswers
-                    .toString()
-                    .padStart(2, "0")}
+                  value={quizResults?.incorrectAnswers
+                    ?.toString()
+                    ?.padStart(2, "0")}
                   label="Wrong Answers"
                   valueColor="text-red-500"
                 />

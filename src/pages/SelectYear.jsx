@@ -37,7 +37,8 @@ function SelectYear() {
           loading="lazy"
           src="/images/logo.png"
           alt="Logo"
-          className="aspect-[2.43] w-[90px] object-contain sm:w-[107px]"
+          className="aspect-[2.43] w-[90px] cursor-pointer object-contain sm:w-[107px]"
+          onClick={() => navigate("/")}
         />
 
         {/* Main Content Section */}

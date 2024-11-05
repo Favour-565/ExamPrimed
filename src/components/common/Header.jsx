@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import NavItems from "./NavItems";
 import NavItem from "./NavItem";
 import AccountButton from "./home/AccountButton";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,7 @@ function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  const isAwardOrProfile = 
+  const isAwardOrProfile =
     location.pathname === "/award" || location.pathname === "/profile";
 
   useEffect(() => {
@@ -31,7 +32,10 @@ function Header() {
   return (
     <>
       <div className="relative">
-        <DesktopHeader isScrolled={isScrolled} isAwardOrProfile={isAwardOrProfile} />
+        <DesktopHeader
+          isScrolled={isScrolled}
+          isAwardOrProfile={isAwardOrProfile}
+        />
         <MobileHeader isAwardOrProfile={isAwardOrProfile} />
       </div>
     </>
@@ -61,20 +65,18 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
         }`}
       >
         <nav className="mx-auto flex max-w-[1300px] items-center justify-between px-2 text-base font-semibold">
-          <img
-            loading="lazy"
-            src={getLogoSource()}
-            alt="Exam primed Logo"
-          />
+          <img loading="lazy" src={getLogoSource()} alt="Exam primed Logo" />
 
           <ul className="hidden items-center gap-5 lg:flex">
             {NavItems.map((item, label) => (
-              <NavItem 
-                key={label} 
+              <NavItem
+                key={label}
                 item={{
                   ...item,
-                  className: isAwardOrProfile ? "text-[#008E90]" : item.className
-                }} 
+                  className: isAwardOrProfile
+                    ? "text-[#008E90]"
+                    : item.className,
+                }}
               />
             ))}
           </ul>
@@ -96,7 +98,9 @@ const MobileHeader = ({ isAwardOrProfile }) => {
 
   return (
     <>
-      <nav className={`fixed top-0 z-20 flex h-fit w-full items-center justify-between ${headerClass} px-4 py-3 shadow-md lg:hidden`}>
+      <nav
+        className={`fixed top-0 z-20 flex h-fit w-full items-center justify-between ${headerClass} px-4 py-3 shadow-md lg:hidden`}
+      >
         <img
           loading="lazy"
           src="/images/colored-logo.svg"
