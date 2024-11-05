@@ -35,6 +35,7 @@ import Practice from "./pages/Practice";
 import DailyTest from "./pages/DailyTest";
 import ForgotPassword from "./pages/ForgotPassword";
 import SetPassword from "./pages/SetPassword";
+import Conditions from "./pages/Conditions";
 
 
 
@@ -51,6 +52,7 @@ const routesConfig = [
   { path: "/review", element: Review, meta: { title: "", description: "" } },
   { path: "/about-us", element: AboutUs, meta: { title: "", description: "" } },
   { path: "/instructions", element: Instructions, meta: { title: "", description: "" } },
+  { path: "/terms-and-conditions", element:Conditions, meta: { title: "", description: "" } },
   { path: "/policy", element: Policy, meta: { title: "", description: "" } },
   { path: "/pricing", element: PricingPage, meta: { title: "", description: "" } },
   { path: "/faqs", element: FAQs, meta: { title: "", description: "" } },

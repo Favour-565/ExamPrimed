@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function CheckboxField({ name, checked, onChange, error }) {
   return (
@@ -12,7 +13,11 @@ function CheckboxField({ name, checked, onChange, error }) {
           className="mt-1 w-4 h-4 text-cyan-950 border-gray-300 rounded focus:ring-cyan-500"
         />
         <label className="text-sm text-gray-700">
-          I agree to the Terms and Conditions and Privacy Policy
+          I agree to the{' '}
+          <Link to="/terms-and-conditions" className="text-cyan-600 hover:text-cyan-700 hover:underline">
+            Terms and Conditions
+          </Link>
+          {' '}and Privacy Policy
         </label>
       </div>
       {error && (
@@ -21,6 +26,5 @@ function CheckboxField({ name, checked, onChange, error }) {
     </div>
   );
 }
-
 
 export default CheckboxField;
