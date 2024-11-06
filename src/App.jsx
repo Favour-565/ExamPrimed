@@ -36,6 +36,8 @@ import useGenFetcher from "./data/useFetcher";
 import useErrorStore from "./data/stores/errorStore";
 import { ToastContainer, Zoom } from "react-toastify";
 import { ModalContainer } from "./components/auth/Button";
+import Conditions from "./pages/Conditions";
+import ReviewAnswers from "./pages/ReviewAnswers";
 
 SetDefaultHeaders();
 
@@ -63,6 +65,12 @@ const routesConfig = [
     element: Instructions,
     meta: { title: "", description: "" },
   },
+  {
+    path: "/terms-and-conditions",
+    element: Conditions,
+    meta: { title: "", description: "" },
+  },
+
   { path: "/policy", element: Policy, meta: { title: "", description: "" } },
   {
     path: "/pricing",
@@ -97,6 +105,8 @@ const routesConfig = [
     meta: { title: "", description: "" },
   },
   { path: "/award", element: Award, meta: { title: "", description: "" } },
+
+  { path: "/review-answers", element: ReviewAnswers, meta: { title: "", description: "" } },
   {
     path: "/payment-mode",
     element: PaymentMode,

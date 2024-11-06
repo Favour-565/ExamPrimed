@@ -13,9 +13,11 @@ export const SetAuthToken = (token) => {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useURL = import.meta.env.DEV
-  ? "http://localhost:9999"
-  : import.meta.env.VITE_BASE_URL;
+// export const useURL = import.meta.env.DEV
+//   ? "http://localhost:9999"
+//   : import.meta.env.VITE_BASE_URL;
+  export const useURL = 
+  import.meta.env.VITE_BASE_URL;
 
 export const SetDefaultHeaders = () => {
   axios.defaults.baseURL = useURL;
