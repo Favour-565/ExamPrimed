@@ -1,73 +1,80 @@
-import React, { useEffect, useState, useCallback } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState, useCallback } from "react";
 import Button, { ModalContainer } from "../auth/Button";
 import useErrorStore from "../../data/stores/errorStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { apiCall } from "../../data/useFetcher";
 import { toast } from "react-toastify";
 import moment from "moment";
+import DOMPurify from "dompurify";
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const createMarkup = (html) => {
+  return {
+    __html: DOMPurify.sanitize(html),
+  };
+};
 
 const MediaContent = ({ type, content, className = "" }) => {
   if (!content) return null;
 
   switch (type) {
-    case "image":
-      return (
-        <div className="w-full max-w-2xl overflow-hidden rounded-lg">
-          <img 
-            src={content} 
-            alt="Question media" 
-            className={`h-auto w-full object-contain ${className}`}
-            style={{ maxHeight: "400px" }}
-          />
-        </div>
-      );
     case "diagram":
+    case "image":
+    case "file":
       return (
         <div className="w-full max-w-2xl overflow-hidden rounded-lg">
-          <img 
-            src={content} 
-            alt="Diagram" 
+          <img
+            src={content}
+            alt={type === "diagram" ? "Diagram" : "Question media"}
             className={`h-auto w-full object-contain ${className}`}
             style={{ maxHeight: "400px" }}
           />
         </div>
       );
     case "text":
-      return <p className={`text-base ${className}`}>{content}</p>;
+      return (
+        <p className={`text-base ${className}`}>
+          <span dangerouslySetInnerHTML={createMarkup(content)} />
+          {/* {content} */}
+        </p>
+      );
     default:
       return null;
   }
 };
 
 const QuestionCard = ({ questions: mainQuestions, type }) => {
-  const [questions] = useState(mainQuestions || [
-    {
-      question: "What is the capital of France?",
-      questionType: "text",
-      questionMedia: null,
-      options: [
-        { 
-          option: "Paris",
-          optionType: "text",
-          optionMedia: null,
-          _id: "1"
-        },
-        {
-          option: "London",
-          optionType: "text",
-          optionMedia: null,
-          _id: "2"
-        }
-      ],
-    }
-  ]);
+  const [questions] = useState(
+    mainQuestions || [
+      {
+        question: "What is the capital of France?",
+        questionType: "text",
+        questionMedia: null,
+        options: [
+          {
+            option: "Paris",
+            optionType: "text",
+            optionMedia: null,
+            _id: "1",
+          },
+          {
+            option: "London",
+            optionType: "text",
+            optionMedia: null,
+            _id: "2",
+          },
+        ],
+      },
+    ],
+  );
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isSelected, setIsSelected] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [answerArr, setAnswerArr] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+
   const initTime = new Date();
   const { returnErrors } = useErrorStore();
   const navigate = useNavigate();
@@ -88,24 +95,26 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
     setLoading(true);
 
     const currentQuestion = questions?.[currentPage - 1];
-    const newAnswers = answerArr.map(item => 
+    const newAnswers = answerArr.map((item) =>
       item?.question === currentQuestion?._id
         ? { ...item, option: isSelected?.answer }
-        : item
+        : item,
     );
 
     const submitData = {
       answers: newAnswers,
-      ...(type === "daily" ? { subject: state?._id } : { 
-        exam: type,
-        timeSpent: moment().diff(initTime, "minutes")
-      })
+      ...(type === "daily"
+        ? { subject: state?._id }
+        : {
+            exam: type,
+            timeSpent: moment().diff(initTime, "minutes"),
+          }),
     };
 
     const { response, errArr, errMsg } = await apiCall({
       type: "post",
       url: `/api/v1/exam/answer${type === "daily" ? "/daily" : ""}`,
-      data: submitData
+      data: submitData,
     });
 
     if (errArr) {
@@ -123,24 +132,27 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         scoreAccuracy: res?.score,
         totalQuestions: res?.totalQuestions,
         correctAnswers: res?.correctAnswer,
-        incorrectAnswers: res?.totalQuestions - res?.correctAnswer
+        incorrectAnswers: res?.totalQuestions - res?.correctAnswer,
+        quizAnswers: res?.quizAnswers,
       };
-      
+
       navigate("/award", { state: { quizResults } });
       return;
     }
-    
+
     setLoading(false);
   };
 
   const handleNext = useCallback(() => {
     if (isSelected) {
       const currentQuestion = questions?.[currentPage - 1];
-      setAnswerArr(prev => prev.map(item =>
-        item?.question === currentQuestion?._id
-          ? { ...item, isVisited: true, option: isSelected?.answer }
-          : item
-      ));
+      setAnswerArr((prev) =>
+        prev.map((item) =>
+          item?.question === currentQuestion?._id
+            ? { ...item, isVisited: true, option: isSelected?.answer }
+            : item,
+        ),
+      );
 
       if (currentPage !== questions?.length) {
         setIsSelected(null);
@@ -160,7 +172,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
 
   useEffect(() => {
     if (mainQuestions) {
-      setAnswerArr(mainQuestions.map(item => ({ question: item?._id })));
+      setAnswerArr(mainQuestions.map((item) => ({ question: item?._id })));
     }
   }, [mainQuestions]);
 
@@ -175,31 +187,29 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
 
   return (
     <div className="mx-auto mb-4 mt-2 w-full max-w-xl overflow-hidden rounded-xl bg-[#015758] p-4 pt-8 shadow-md md:max-w-3xl md:p-8 lg:max-w-5xl">
-     
       <div className="mb-4 flex justify-center">
         <div className="rounded-[20px] bg-[#369D9E] px-3 py-2 text-sm text-white md:px-5 md:text-base">
           Question {currentPage}/{questions.length}
         </div>
       </div>
 
-      
       <div className="flex flex-col items-center justify-center gap-4">
-        
-        <MediaContent 
-          type={currentQuestion?.questionType} 
-          content={currentQuestion?.questionMedia}
+        <MediaContent
+          type={currentQuestion?.questionType}
+          content={currentQuestion?.file?.url}
           className="mb-4"
         />
-        
-        
+
         <div className="w-full -skew-x-12 transform rounded-[3px] border-2 border-white bg-white p-3 text-center">
           <h2 className="px-1 text-sm font-bold md:text-base">
-            {currentQuestion?.question}
+            {/* {currentQuestion?.question} */}
+            <span
+              dangerouslySetInnerHTML={createMarkup(currentQuestion?.question)}
+            />
           </h2>
         </div>
       </div>
 
-     
       <div className="mx-2 mt-4 grid grid-cols-1 gap-5 md:mx-3 md:grid-cols-2">
         {currentQuestion?.options?.map((option, index) => (
           <div
@@ -210,7 +220,8 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
             <div
               className={`flex w-full -skew-x-12 transform cursor-pointer overflow-hidden rounded-[3px] border-2 border-white transition-all duration-200 hover:shadow-lg ${
                 isSelected?.answer === option?._id ||
-                answerArr?.find((it) => it?.question === currentQuestion?._id)?.option === option?._id
+                answerArr?.find((it) => it?.question === currentQuestion?._id)
+                  ?.option === option?._id
                   ? "ring-2 ring-teal-600"
                   : ""
               }`}
@@ -218,12 +229,12 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
                 minHeight: "3rem",
                 borderColor:
                   isSelected?.answer === option?._id ||
-                  answerArr?.find((it) => it?.question === currentQuestion?._id)?.option === option?._id
+                  answerArr?.find((it) => it?.question === currentQuestion?._id)
+                    ?.option === option?._id
                     ? getOptionColor(index)
-                    : ""
+                    : "",
               }}
             >
-              
               <span
                 className="flex items-center justify-center rounded-[3px] px-2 font-bold text-white md:px-4"
                 style={{ backgroundColor: getOptionColor(index) }}
@@ -231,19 +242,20 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
                 {String.fromCharCode(65 + index)}
               </span>
 
-              
               <div className="flex flex-grow flex-col items-center bg-white p-2 md:p-4">
-                <MediaContent 
-                  type={option?.optionType} 
-                  content={option?.optionMedia || option?.option}
-                />
+                {option?.optionType === "file" && (
+                  <MediaContent
+                    type={option?.optionType}
+                    content={option?.file?.url}
+                  />
+                )}
+                <span dangerouslySetInnerHTML={createMarkup(option?.option)} />
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      
       <div className="mt-8 flex items-center justify-between">
         {currentPage > 1 && (
           <Button
@@ -262,14 +274,13 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         />
       </div>
 
-     
       {showAlert && (
         <ModalContainer handleClose={handleCloseAlert}>
           <div>
             <div className="flex justify-between">
               <h3 className="text-xl font-bold text-[#369D9E]">Alert</h3>
             </div>
-            
+
             <div className="flex animate-bounce items-center justify-center gap-2 py-4">
               {colors?.map((color, i) => (
                 <div

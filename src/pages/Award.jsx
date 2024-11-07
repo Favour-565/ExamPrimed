@@ -20,7 +20,24 @@ function Award() {
     { user } = useAuthStore();
 
   const handleReviewAnswers = () => {
-    navigate("/review-answers", { state: { quizResults } });
+    navigate("/review-answers", {
+      state: {
+        quizAnswers: quizResults?.quizAnswers || [
+          {
+            question: "How do you do",
+            isCorrect: false,
+            userAnswer: "abd",
+            correctAnswer: "cdq",
+          },
+          {
+            question: "How do you not do",
+            isCorrect: true,
+            userAnswer: "abd",
+            correctAnswer: "cdq",
+          },
+        ],
+      },
+    });
   };
 
   const handleShareScore = () => {
