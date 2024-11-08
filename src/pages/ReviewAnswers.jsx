@@ -1,19 +1,19 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { createMarkup } from "../components/test/questionCard";
 
 const ReviewAnswers = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { quizAnswers } = location.state || {};
 
-  if (!quizAnswers) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-xl">No quiz answers found. Please take a quiz first.</p>
-      </div>
-    );
-  }
+  // if (!quizAnswers) {
+  //   return (
+  //     <div className="flex min-h-screen items-center justify-center">
+  //       <p className="text-xl">No quiz answers found. Please take a quiz first.</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-6 md:px-6">
@@ -29,10 +29,16 @@ const ReviewAnswers = () => {
           </button>
           <h1 className="ml-4 text-2xl font-bold">Review Answers</h1>
         </div>
-
+        {!quizAnswers && (
+          <div className="flex min-h-screen items-center justify-center">
+            <p className="text-xl">
+              No quiz answers found. Please take a quiz first.
+            </p>
+          </div>
+        )}
         {/* Questions and Answers Review */}
         <div className="space-y-6">
-          {quizAnswers.map((answer, index) => (
+          {quizAnswers?.map((answer, index) => (
             <div key={index} className="rounded-lg bg-white p-6 shadow-sm">
               {/* Question Number and Status */}
               <div className="mb-4 flex items-center justify-between">
@@ -41,53 +47,68 @@ const ReviewAnswers = () => {
                 </h3>
                 <span
                   className={`rounded-full px-3 py-1 text-sm ${
-                    answer.isCorrect
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-red-100 text-red-800'
+                    answer?.isCorrect
+                      ? "bg-green-100 text-green-800"
+                      : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {answer.isCorrect ? 'Correct' : 'Incorrect'}
+                  {answer?.isCorrect ? "Correct" : "Incorrect"}
                 </span>
               </div>
 
               {/* Question Text */}
-              <p className="mb-4 text-gray-700">{answer.question}</p>
+              <p className="mb-4 text-gray-700">
+                <span
+                  dangerouslySetInnerHTML={createMarkup(answer?.question)}
+                />
+                {/* {answer?.question} */}
+              </p>
 
               {/* Answer Comparison */}
               <div className="space-y-4">
                 {/* Your Answer */}
                 <div
                   className={`rounded-lg p-4 ${
-                    answer.isCorrect
-                      ? 'bg-green-50'
-                      : 'bg-red-50'
+                    answer?.isCorrect ? "bg-green-50" : "bg-red-50"
                   }`}
                 >
                   <p className="mb-2 font-medium text-gray-700">Your Answer:</p>
                   <p
                     className={`${
-                      answer.isCorrect
-                        ? 'text-green-700'
-                        : 'text-red-700'
+                      answer?.isCorrect ? "text-green-700" : "text-red-700"
                     }`}
                   >
-                    {answer.userAnswer}
+                    {/* {answer?.userAnswer} */}
+                    <span
+                      dangerouslySetInnerHTML={createMarkup(answer?.userAnswer)}
+                    />
                   </p>
                 </div>
 
                 {/* Correct Answer - Only show if user's answer was wrong */}
-                {!answer.isCorrect && (
+                {!answer?.isCorrect && (
                   <div className="rounded-lg bg-green-50 p-4">
-                    <p className="mb-2 font-medium text-gray-700">Correct Answer:</p>
-                    <p className="text-green-700">{answer.correctAnswer}</p>
+                    <p className="mb-2 font-medium text-gray-700">
+                      Correct Answer:
+                    </p>
+                    <p className="text-green-700">
+                      {/* {answer?.correctAnswer} */}
+                      <span
+                        dangerouslySetInnerHTML={createMarkup(
+                          answer?.correctAnswer,
+                        )}
+                      />
+                    </p>
                   </div>
                 )}
 
                 {/* Explanation if available */}
-                {answer.explanation && (
+                {answer?.explanation && (
                   <div className="rounded-lg bg-blue-50 p-4">
-                    <p className="mb-2 font-medium text-gray-700">Explanation:</p>
-                    <p className="text-blue-700">{answer.explanation}</p>
+                    <p className="mb-2 font-medium text-gray-700">
+                      Explanation:
+                    </p>
+                    <p className="text-blue-700">{answer?.explanation}</p>
                   </div>
                 )}
               </div>
