@@ -5,12 +5,12 @@ import FaqsItem from '../components/FaqsItem';
 
 
 const faqData = [
-  { question: "Do we need to install anything?" },
-  { question: "Do we need to install anything?" },
-  { question: "Do we need to install anything?" },
-  { question: "Do we need to install anything?" },
-  { question: "Do we need to install anything?" },
-  { question: "Do we need to install anything?" }
+  { question: "what is a LMS? A Learning Management System (LMS) is a learning portal—or an online learning platform—designed to automate the delivery of eLearning and mobile learning courses to its learners.  " },
+  { question: "What are the advantages of ExamPrimed? Flexibility: In the regular type of learning, students usually have a fixed routine of sitting together and learning from the instructor. Prompt Access to Varied Resources: Students need access to different kinds of resources. These resources can be information, notes, theories, diagrams etc. These resources are available to the students at all times of the day."},
+  { question: "How are courses presented to the learners? " },
+  { question: "Can Users view which courses and tests they have taken?" },
+  { question: "What do learners need to access ExamPrimed? " },
+  { question: "DWhat language options are available? " }
 ];
 
 function FAQs() {
