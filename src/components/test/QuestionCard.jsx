@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
 import Button, { ModalContainer } from "../auth/Button";
 import useErrorStore from "../../data/stores/errorStore";
@@ -8,14 +7,13 @@ import { toast } from "react-toastify";
 import moment from "moment";
 import DOMPurify from "dompurify";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const createMarkup = (html) => {
   return {
     __html: DOMPurify.sanitize(html),
   };
 };
 
-const MediaContent = ({ type, content, className = "" }) => {
+const MediaContent = ({ type, content, className = "", isOption = false }) => {
   if (!content) return null;
 
   switch (type) {
@@ -23,12 +21,12 @@ const MediaContent = ({ type, content, className = "" }) => {
     case "image":
     case "file":
       return (
-        <div className="w-full max-w-2xl overflow-hidden rounded-lg">
+        <div className={`relative overflow-hidden rounded-lg bg-white/90 ${isOption ? 'w-full h-32' : 'w-full max-w-2xl mx-auto'}`}>
           <img
             src={content}
             alt={type === "diagram" ? "Diagram" : "Question media"}
-            className={`h-auto w-full object-contain ${className}`}
-            style={{ maxHeight: "400px" }}
+            className={`w-full h-full object-contain mx-auto ${className}`}
+            style={isOption ? { maxHeight: '128px' } : { maxHeight: '500px' }}
           />
         </div>
       );
@@ -36,7 +34,6 @@ const MediaContent = ({ type, content, className = "" }) => {
       return (
         <p className={`text-base ${className}`}>
           <span dangerouslySetInnerHTML={createMarkup(content)} />
-          {/* {content} */}
         </p>
       );
     default:
@@ -48,25 +45,76 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
   const [questions] = useState(
     mainQuestions || [
       {
-        question: "What is the capital of France?",
-        questionType: "text",
-        questionMedia: null,
+        question: "What is shown in the image above?",
+        questionType: "image",
+        file: {
+          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+        },
         options: [
           {
-            option: "Paris",
+            option: "Lady dancing",
             optionType: "text",
-            optionMedia: null,
             _id: "1",
           },
           {
-            option: "London",
+            option: "Lady holding a camera",
             optionType: "text",
-            optionMedia: null,
             _id: "2",
+          },
+          {
+            option: "Lady cooking",
+            optionType: "text",
+            _id: "3",
+          },
+          {
+            option: "Lady sleeping",
+            optionType: "text",
+            _id: "4",
           },
         ],
       },
-    ],
+      {
+        question: "Looking at the pattern below, which image comes next in the sequence?",
+        questionType: "image",
+        file: {
+          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+        },
+        options: [
+          {
+            option: "",
+            optionType: "image",
+            file: {
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+            },
+            _id: "7",
+          },
+          {
+            option: "",
+            optionType: "image",
+            file: {
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+            },
+            _id: "8",
+          },
+          {
+            option: "",
+            optionType: "image",
+            file: {
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+            },
+            _id: "9",
+          },
+          {
+            option: "",
+            optionType: "image",
+            file: {
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+            },
+            _id: "10",
+          },
+        ],
+      }
+    ]
   );
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -98,7 +146,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
     const newAnswers = answerArr.map((item) =>
       item?.question === currentQuestion?._id
         ? { ...item, option: isSelected?.answer }
-        : item,
+        : item
     );
 
     const submitData = {
@@ -150,8 +198,8 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         prev.map((item) =>
           item?.question === currentQuestion?._id
             ? { ...item, isVisited: true, option: isSelected?.answer }
-            : item,
-        ),
+            : item
+        )
       );
 
       if (currentPage !== questions?.length) {
@@ -187,22 +235,25 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
 
   return (
     <div className="mx-auto mb-4 mt-2 w-full max-w-xl overflow-hidden rounded-xl bg-[#015758] p-4 pt-8 shadow-md md:max-w-3xl md:p-8 lg:max-w-5xl">
-      <div className="mb-4 flex justify-center">
+      <div className="mb-6 flex justify-center">
         <div className="rounded-[20px] bg-[#369D9E] px-3 py-2 text-sm text-white md:px-5 md:text-base">
           Question {currentPage}/{questions.length}
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-4">
-        <MediaContent
-          type={currentQuestion?.questionType}
-          content={currentQuestion?.file?.url}
-          className="mb-4"
-        />
+      <div className="flex flex-col items-center justify-center gap-6">
+        {currentQuestion?.questionType !== "text" && (
+          <div className="w-full px-4 md:px-8">
+            <MediaContent
+              type={currentQuestion?.questionType}
+              content={currentQuestion?.file?.url}
+              className="rounded-lg shadow-lg"
+            />
+          </div>
+        )}
 
-        <div className="w-full -skew-x-12 transform rounded-[3px] border-2 border-white bg-white p-3 text-center">
-          <h2 className="px-1 text-sm font-bold md:text-base">
-            {/* {currentQuestion?.question} */}
+        <div className="w-full -skew-x-12 transform rounded-[3px] border-2 border-white bg-white p-4 text-center shadow-md">
+          <h2 className="px-1 text-base font-bold md:text-lg lg:text-xl">
             <span
               dangerouslySetInnerHTML={createMarkup(currentQuestion?.question)}
             />
@@ -210,7 +261,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         </div>
       </div>
 
-      <div className="mx-2 mt-4 grid grid-cols-1 gap-5 md:mx-3 md:grid-cols-2">
+      <div className="mx-2 mt-6 grid grid-cols-1 gap-5 md:mx-3 md:grid-cols-2">
         {currentQuestion?.options?.map((option, index) => (
           <div
             key={option?._id || index}
@@ -218,7 +269,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
             onClick={() => handleOptionSelect(option)}
           >
             <div
-              className={`flex w-full -skew-x-12 transform cursor-pointer overflow-hidden rounded-[3px] border-2 border-white transition-all duration-200 hover:shadow-lg ${
+              className={`flex w-full -skew-x-12 transform cursor-pointer overflow-hidden rounded-[3px] border-2 border-white transition-all duration-300 hover:shadow-lg ${
                 isSelected?.answer === option?._id ||
                 answerArr?.find((it) => it?.question === currentQuestion?._id)
                   ?.option === option?._id
@@ -226,7 +277,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
                   : ""
               }`}
               style={{
-                minHeight: "3rem",
+                minHeight: option.optionType === "image" ? "8rem" : "3.5rem",
                 borderColor:
                   isSelected?.answer === option?._id ||
                   answerArr?.find((it) => it?.question === currentQuestion?._id)
@@ -236,20 +287,26 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
               }}
             >
               <span
-                className="flex items-center justify-center rounded-[3px] px-2 font-bold text-white md:px-4"
+                className="flex min-w-[2.5rem] items-center justify-center rounded-[3px] px-2 font-bold text-white md:min-w-[3rem] md:px-4"
                 style={{ backgroundColor: getOptionColor(index) }}
               >
                 {String.fromCharCode(65 + index)}
               </span>
 
-              <div className="flex flex-grow flex-col items-center bg-white p-2 md:p-4">
-                {option?.optionType === "file" && (
+              <div className="flex flex-grow flex-col items-center justify-center bg-white p-2">
+                {option?.optionType === "image" ? (
                   <MediaContent
-                    type={option?.optionType}
+                    type="image"
                     content={option?.file?.url}
+                    isOption={true}
+                    className="rounded-lg"
+                  />
+                ) : (
+                  <span 
+                    className="text-sm md:text-base"
+                    dangerouslySetInnerHTML={createMarkup(option?.option)} 
                   />
                 )}
-                <span dangerouslySetInnerHTML={createMarkup(option?.option)} />
               </div>
             </div>
           </div>
