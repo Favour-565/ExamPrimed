@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import SubjectBackButton from "../components/subject/SubjectBackButton";
-import SubjectCard from "../components/Subject/SubjectCard";
+import SubjectCard from "../components/subject/SubjectCard";
 import { useSubjectStore } from "../data/stores/loggerStore";
 import { useEffect } from "react";
 import { apiCall } from "../data/useFetcher";

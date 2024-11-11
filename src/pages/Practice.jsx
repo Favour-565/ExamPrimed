@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/common/Footer";
-import PracticeExam from "../components/Exams/PracticeExam";
-import BackButton from "../components/Exams/BackButton";
+import PracticeExam from "../components/exams/PracticeExam";
+import BackButton from "../components/exams/BackButton";
 import { useExamTypeStore } from "../data/stores/loggerStore";
 import { apiCall } from "../data/useFetcher";
 import { useEffect } from "react";

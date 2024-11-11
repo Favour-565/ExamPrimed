@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import SubjectBackButton from "../components/subject/SubjectBackButton";
-import SubjectCard from "../components/Subject/SubjectCard";
+import SubjectCard from "../components/subject/SubjectCard";
 import { useSubjects } from "../hooks/useSubject";
 import { useSubjectStore } from "../data/stores/loggerStore";
 import { useEffect } from "react";
