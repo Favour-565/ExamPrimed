@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
 import Button, { ModalContainer } from "../auth/Button";
 import useErrorStore from "../../data/stores/errorStore";
@@ -21,12 +23,14 @@ const MediaContent = ({ type, content, className = "", isOption = false }) => {
     case "image":
     case "file":
       return (
-        <div className={`relative overflow-hidden rounded-lg bg-white/90 ${isOption ? 'w-full h-32' : 'w-full max-w-2xl mx-auto'}`}>
+        <div
+          className={`relative overflow-hidden rounded-lg ${isOption ? (isOption === "question" ? "" : "bg-white/90") : "bg-white/90"} ${isOption ? "h-32 w-full" : "mx-auto w-full max-w-2xl"}`}
+        >
           <img
             src={content}
             alt={type === "diagram" ? "Diagram" : "Question media"}
-            className={`w-full h-full object-contain mx-auto ${className}`}
-            style={isOption ? { maxHeight: '128px' } : { maxHeight: '500px' }}
+            className={`mx-auto h-full w-full object-contain ${className}`}
+            style={isOption ? { maxHeight: "128px" } : { maxHeight: "500px" }}
           />
         </div>
       );
@@ -48,7 +52,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         question: "What is shown in the image above?",
         questionType: "image",
         file: {
-          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
         },
         options: [
           {
@@ -74,17 +78,18 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         ],
       },
       {
-        question: "Looking at the pattern below, which image comes next in the sequence?",
+        question:
+          "Looking at the pattern below, which image comes next in the sequence?",
         questionType: "image",
         file: {
-          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
         },
         options: [
           {
             option: "",
             optionType: "image",
             file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
             },
             _id: "7",
           },
@@ -92,7 +97,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
             option: "",
             optionType: "image",
             file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
             },
             _id: "8",
           },
@@ -100,7 +105,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
             option: "",
             optionType: "image",
             file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
             },
             _id: "9",
           },
@@ -108,13 +113,13 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
             option: "",
             optionType: "image",
             file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg"
+              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
             },
             _id: "10",
           },
         ],
-      }
-    ]
+      },
+    ],
   );
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -146,7 +151,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
     const newAnswers = answerArr.map((item) =>
       item?.question === currentQuestion?._id
         ? { ...item, option: isSelected?.answer }
-        : item
+        : item,
     );
 
     const submitData = {
@@ -198,8 +203,8 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         prev.map((item) =>
           item?.question === currentQuestion?._id
             ? { ...item, isVisited: true, option: isSelected?.answer }
-            : item
-        )
+            : item,
+        ),
       );
 
       if (currentPage !== questions?.length) {
@@ -248,6 +253,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
               type={currentQuestion?.questionType}
               content={currentQuestion?.file?.url}
               className="rounded-lg shadow-lg"
+              isOption={"question"}
             />
           </div>
         )}
@@ -294,19 +300,18 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
               </span>
 
               <div className="flex flex-grow flex-col items-center justify-center bg-white p-2">
-                {option?.optionType === "image" ? (
+                {["media", "file"]?.includes(option?.optionType) ? (
                   <MediaContent
-                    type="image"
+                    type={option?.optionType}
                     content={option?.file?.url}
                     isOption={true}
                     className="rounded-lg"
                   />
-                ) : (
-                  <span 
-                    className="text-sm md:text-base"
-                    dangerouslySetInnerHTML={createMarkup(option?.option)} 
-                  />
-                )}
+                ) : null}
+                <span
+                  className="text-sm md:text-base"
+                  dangerouslySetInnerHTML={createMarkup(option?.option)}
+                />
               </div>
             </div>
           </div>
