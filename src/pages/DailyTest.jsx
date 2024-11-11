@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import QuestionCard from "../components/test/questionCard";
+import QuestionCard from "../components/test/QuestionCard";
 import useErrorStore from "../data/stores/errorStore";
 import { apiCall } from "../data/useFetcher";
 import { Loader } from "../components/auth/Button";
