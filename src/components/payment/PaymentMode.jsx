@@ -119,7 +119,7 @@ function PaymentMode() {
   ];
 
   const MainArr = country
-      ? country?.toLowerCase() !== "nigeria"
+      ? country?.toLowerCase() === "nigeria"
         ? paymentOptions
         : [
             {
