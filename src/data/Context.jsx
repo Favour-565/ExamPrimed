@@ -39,7 +39,7 @@ const DataProvider = ({ children }) => {
         const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
         console.log({ data }, "fetch");
-        setCountry(data.country_name);
+        setCountry(data.country_name?.toLowerCase());
       } catch (error) {
         console.error("Error fetching country:", error);
       }
