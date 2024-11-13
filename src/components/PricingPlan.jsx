@@ -71,7 +71,7 @@ const PricingPlan = ({
           </div> */}
           <ul className="mt-4 space-y-2 text-sm uppercase text-white">
             <li className="">
-              ₦ {numberWithCommas(Number(plan?.amount || 0).toFixed(2))} /{" "}
+              ₦ {numberWithCommas(Number(plan?.amount || 0).toFixed(0))} /{" "}
               {plan?.perAmount}
             </li>
             <li>
