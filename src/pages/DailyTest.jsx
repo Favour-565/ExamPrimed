@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 function DailyTest() {
   const [quizResults, setQuizResults] = useState(null);
+  const [scrollY, setScrollY] = useState(0);
 
   const handleQuizComplete = (results) => {
     setQuizResults(results);
@@ -46,10 +47,21 @@ function DailyTest() {
   useEffect(() => {
     if (!state) navigate("/");
     if (state) handleSubmit();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, navigate]);
 
-  // console.log({ newQuestions });
+  // Scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -68,7 +80,6 @@ function DailyTest() {
 
       <div className="relative inset-0 flex flex-col items-center justify-center px-4 md:mt-24 md:px-10 lg:px-16">
         <div className="mt-8 w-full max-w-2xl rounded-lg bg-white bg-opacity-90 p-4 shadow-lg md:max-w-3xl md:p-8 lg:max-w-5xl">
-          {/* <Loader /> */}
           {loading ? (
             <Loader />
           ) : !quizResults ? (
@@ -91,6 +102,15 @@ function DailyTest() {
           )}
         </div>
       </div>
+
+      {scrollY > 300 && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-10 p-3 rounded-full bg-blue-500 text-white shadow-lg transition hover:bg-blue-600"
+        >
+          Scroll to Top
+        </button>
+      )}
     </section>
   );
 }

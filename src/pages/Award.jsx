@@ -85,7 +85,7 @@ function Award() {
                 {quizResults?.scoreAccuracy &&
                 Number(quizResults?.scoreAccuracy).toFixed(0) >= 60
                   ? "HURRAY!!!"
-                  : "OPPS!!!"}
+                  : "OOPS!!!"}
               </h1>
               <p className="mt-2.5 w-[424px] gap-2.5 self-stretch p-2.5 text-xl max-md:max-w-full">
                 {quizResults?.scoreAccuracy &&

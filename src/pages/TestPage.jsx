@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import QuestionCard from "../components/test/QuestionCard";
 import useErrorStore from "../data/stores/errorStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { apiCall } from "../data/useFetcher";
 import { toast } from "react-toastify";
 import { Loader } from "../components/auth/Button";
+import QuestionCard from "../components/test/questionCard";
 
 function TestPage() {
   const [quizResults, setQuizResults] = useState(null);
