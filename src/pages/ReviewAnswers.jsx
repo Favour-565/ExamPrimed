@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { createMarkup } from "../components/test/questionCard";
+import { createMarkup } from "../components/test/QuestionCard";
 
 
 const ReviewAnswers = () => {
