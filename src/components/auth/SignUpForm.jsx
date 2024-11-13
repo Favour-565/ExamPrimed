@@ -89,7 +89,7 @@ function SignUpForm() {
       if (response) {
         login(response);
         loadUser();
-        navigate("/select-exam");
+        navigate("/profile");
         return;
       }
       setLoading(false);
