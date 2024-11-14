@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
 
-function LeaderBoardItem({ name, points, rank, avatar, user }) {
+import { AvatarImg } from "../../pages/Profile";
+
+function LeaderBoardItem({ name, points, rank, user }) {
   return (
     <article className="relative mt-5 flex w-full flex-wrap justify-between gap-5 rounded-md bg-[#015758] px-10 py-1 shadow-[0px_4px_6px_rgba(0,0,0,0.25)] max-md:max-w-full max-md:px-5">
       <div className="flex gap-10 whitespace-nowrap text-2xl font-semibold text-white">
-        <img
+        {/* <img
           loading="lazy"
           src={user?.user?.image?.url || avatar}
           alt={`${user?.user?.lastName || name || ""}'s avatar`}
           className="aspect-square w-[60px] shrink-0 rounded-full object-contain"
-        />
+        /> */}
+        <AvatarImg user={user?.user} css="w-[60px] h-[60px]" />
         <div className="my-auto">
           {name}
           {user?.user?.firstName} {user?.user?.lastName}

@@ -42,7 +42,7 @@ function LeaderBoard() {
     { data, getLogger } = useLeaderboardStore();
 
   useEffect(() => {
-    if (!isAuth) navigate("/");
+    if (!isAuth) navigate("/login");
   }, [isAuth, navigate]);
 
   useEffect(() => {

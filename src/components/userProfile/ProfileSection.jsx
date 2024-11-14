@@ -1,16 +1,18 @@
 import useAuthStore from "../../data/stores/authStore";
+import { AvatarImg } from "../../pages/Profile";
 
 function ProfileSection() {
   let { user } = useAuthStore();
   return (
     <section className="flex w-[25%] flex-col max-md:ml-0 max-md:w-full">
       <div className="w-[600px] items-start text-lg text-cyan-950 max-md:mt-10">
-        <img
+        {/* <img
           loading="lazy"
           src="/Icons/Mark2.png"
           alt="Profile"
           className="aspect-square w-[171px] max-w-full rounded-3xl object-contain"
-        />
+        /> */}
+        <AvatarImg user={user} style={{ height: "10rem", width: "10rem" }} />
         <h2 className="mt-5 text-2xl font-semibold">
           {user?.firstName} {user?.lastName}
         </h2>
