@@ -4,6 +4,7 @@ import Header from "../components/common/Header";
 import CoinPackage from "../components/screens/OutOfCoin.jsx/CoinPackage";
 import Footer from "../components/common/Footer";
 import useAuthStore from "../data/stores/authStore";
+import { useEffect } from "react";
 
 function BuyCoinsPage() {
   const coinPackages = [
@@ -76,6 +77,10 @@ function BuyCoinsPage() {
 
     if (link) window.open(link, "_blank");
   };
+
+  useEffect(() => {
+    if (!isAuth) navigate("/login");
+  }, [isAuth, navigate]);
 
   return (
     <main
