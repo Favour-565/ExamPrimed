@@ -47,6 +47,7 @@ function Practice() {
           >
             <img
               src="/images/logo (2).svg"
+              loading="lazy"
               alt="Logo"
               className="h-auto w-[107px]"
             />
@@ -57,6 +58,7 @@ function Practice() {
             </h1>
             <img
               src="/Icons/GoIcon.png"
+              loading="lazy"
               alt="Decorative element"
               className="mt-4 h-auto w-[100px] sm:mt-0"
             />
