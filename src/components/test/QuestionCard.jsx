@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
 import Button, { ModalContainer } from "../auth/Button";
 import useErrorStore from "../../data/stores/errorStore";
@@ -46,87 +44,13 @@ const MediaContent = ({ type, content, className = "", isOption = false }) => {
 };
 
 const QuestionCard = ({ questions: mainQuestions, type }) => {
-  const [questions] = useState(
-    mainQuestions || [
-      {
-        question: "What is shown in the image above?",
-        questionType: "image",
-        file: {
-          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
-        },
-        options: [
-          {
-            option: "Lady dancing",
-            optionType: "text",
-            _id: "1",
-          },
-          {
-            option: "Lady holding a camera",
-            optionType: "text",
-            _id: "2",
-          },
-          {
-            option: "Lady cooking",
-            optionType: "text",
-            _id: "3",
-          },
-          {
-            option: "Lady sleeping",
-            optionType: "text",
-            _id: "4",
-          },
-        ],
-      },
-      {
-        question:
-          "Looking at the pattern below, which image comes next in the sequence?",
-        questionType: "image",
-        file: {
-          url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
-        },
-        options: [
-          {
-            option: "",
-            optionType: "image",
-            file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
-            },
-            _id: "7",
-          },
-          {
-            option: "",
-            optionType: "image",
-            file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
-            },
-            _id: "8",
-          },
-          {
-            option: "",
-            optionType: "image",
-            file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
-            },
-            _id: "9",
-          },
-          {
-            option: "",
-            optionType: "image",
-            file: {
-              url: "https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/10/free-images.jpg",
-            },
-            _id: "10",
-          },
-        ],
-      },
-    ],
-  );
-
+  const [questions] = useState(mainQuestions || []);
   const [currentPage, setCurrentPage] = useState(1);
   const [isSelected, setIsSelected] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [answerArr, setAnswerArr] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(0);
 
   const initTime = new Date();
   const { returnErrors } = useErrorStore();
@@ -196,6 +120,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
     setLoading(false);
   };
 
+
   const handleNext = useCallback(() => {
     if (isSelected) {
       const currentQuestion = questions?.[currentPage - 1];
@@ -230,17 +155,25 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
   }, [mainQuestions]);
 
   useEffect(() => {
+    let intervalId;
+
     if (isSelected && questions?.length !== currentPage) {
-      const timer = setTimeout(() => handleNext(), 1000);
-      return () => clearTimeout(timer);
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
     }
-  }, [isSelected, handleNext, currentPage, questions]);
+
+    return () => clearInterval(intervalId);
+  }, [isSelected, currentPage, questions]);
 
   const currentQuestion = questions[currentPage - 1];
+  const formattedTime = moment.utc(timer * 1000).format("mm:ss");
 
   return (
     <div className="mx-auto mb-4 mt-2 w-full max-w-xl overflow-hidden rounded-xl bg-[#015758] p-4 pt-8 shadow-md md:max-w-3xl md:p-8 lg:max-w-5xl">
-      <div className="mb-6 flex justify-center">
+     <div className="mb-6 flex justify-center">
         <div className="rounded-[20px] bg-[#369D9E] px-3 py-2 text-sm text-white md:px-5 md:text-base">
           Question {currentPage}/{questions.length}
         </div>
@@ -318,6 +251,7 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
         ))}
       </div>
 
+
       <div className="mt-8 flex items-center justify-between">
         {currentPage > 1 && (
           <Button
@@ -327,13 +261,16 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
             label="Previous"
           />
         )}
-        <Button
-          onClick={handleNext}
-          disabled={!isSelected || loading}
-          className="ms-auto rounded-[20px] bg-[#369D9E] px-4 py-2 text-white shadow-md hover:bg-teal-600 disabled:cursor-not-allowed disabled:opacity-50 md:px-10"
-          label={currentPage === questions?.length ? "Submit" : "Next"}
-          loading={loading}
-        />
+        <div className="flex items-center gap-4">
+          <span className="text-white">{formattedTime}</span>
+          <Button
+            onClick={handleNext}
+            disabled={!isSelected || loading}
+            className="rounded-[20px] bg-[#369D9E] px-4 py-2 text-white shadow-md hover:bg-teal-600 disabled:cursor-not-allowed disabled:opacity-50 md:px-10"
+            label={currentPage === questions?.length ? "Submit" : "Next"}
+            loading={loading}
+          />
+        </div>
       </div>
 
       {showAlert && (
@@ -371,6 +308,8 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
           </div>
         </ModalContainer>
       )}
+
+
     </div>
   );
 };

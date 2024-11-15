@@ -5,22 +5,23 @@ const reviewsData = [
   {
     imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/8818f29323f7ad8d91bd151041e3e41c68eeaf357ed8cac1f93b4c417ebfba48?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345",
     name: "Shade Thomas",
-    review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    review: "I love how organized and easy-to-use the platform is. ExamPrimed gave me access to resources I couldn’t find anywhere else!"
+
   },
   {
     imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/2f2a8436d29623f01eb81ca2c451a2f8f01cb6a318a64afe6e6f222fa2888260?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345",
     name: "Solomon Kalu",
-    review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+    review: "The best study tool I’ve come across! ExamPrimed’s vast question bank made it easy to prepare and feel ready for anything on exam day."
   },
   {
     imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/8818f29323f7ad8d91bd151041e3e41c68eeaf357ed8cac1f93b4c417ebfba48?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345",
     name: "Shade Thomas",
-    review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    review: "ExamPrimed is an absolute lifesaver. It’s like having a personal tutor guiding me through the exact topics I need to focus on!"
   },
   {
     imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/2f2a8436d29623f01eb81ca2c451a2f8f01cb6a318a64afe6e6f222fa2888260?placeholderIfAbsent=true&apiKey=442354fd1b8446e3aaa0dbfefef21345",
     name: "Solomon Kalu",
-    review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+    review: "Using ExamPrimed improved my grades significantly. With so many past questions, I was fully prepared and knew exactly what to expect."
   }
 ];
 

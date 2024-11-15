@@ -8,17 +8,29 @@ Minus 2 points for each question.
 Use of Lifeline: You can use it only once per level
 50 - 50: Remove two options out of four (deduct 4 coins).
 Skip question: You can pass the question without minus points(deduct 4 coins).
-Audience poll: Use the audience poll to check other users choose option(deduct 4 coins).
-Reset timer: Reset the timer again if you need more time (deduct 4 coins).
-Leaderboard: You can compare your score with other users of the app.
+Leaderboard: You can compare your score with other users of the web and app,
+highest scored comes up on the leaderboard.
+To Practice;
+Sign up for an account,
+Navigate to Practice,
+Select your exam type JAMB, WAEC, or NECO.
+Choose your subject,
+Pick the exam year.
+
 
 `,
 `Contest Rules: To provide a fair and equal chance of winning to all Online Quiz readers, 
 the following are the official rules for all contests on Online Quiz.
 Eligibility: All players/users can play the contest.
-How to Enter: The user can Play the Contest by spending the number of coins specified as an entry fee in the contest details.
-Choice of law: All the Contest and Operations belong to the ExamPrimed Team and Apple is not involved in any way with the contest.
-Sponsor: Sponsors data will be shown there in the contest as there are many sponsors for the contest.`,
+How to Enter: The user can Play the Contest by spending the number of coins specified 
+as an entry fee in the contest details.
+Choice of law: All the Contest and Operations belong to the ExamPrimed Team .
+Daily Test;
+Sign up for an account.
+Choose your subject for the daily test.
+Each question is timed, and you have the option to return to previous questions.
+
+`,
 ];
 
 function MainContent() {

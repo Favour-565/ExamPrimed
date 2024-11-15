@@ -4,7 +4,8 @@ const ReviewSection = () => {
   const [content, setContent] = useState({
     title: "Our wide range of services",
     description: "We are ready to give you a new experience",
-    details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    details: "ExamPrimed has been a game-changer! Having access to decades of past questions really helped me understand exam patterns and boosted my confidence."
+
   });
 
   useEffect(() => {
