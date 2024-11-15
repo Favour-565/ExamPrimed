@@ -4,6 +4,8 @@ import Header from "../components/common/Header";
 import CoinPackage from "../components/screens/OutOfCoin.jsx/CoinPackage";
 import Footer from "../components/common/Footer";
 import useAuthStore from "../data/stores/authStore";
+import { useEffect } from "react";
+import { AvatarImg } from "./Profile";
 
 function BuyCoinsPage() {
   const coinPackages = [
@@ -77,6 +79,10 @@ function BuyCoinsPage() {
     if (link) window.open(link, "_blank");
   };
 
+  useEffect(() => {
+    if (!isAuth) navigate("/login");
+  }, [isAuth, navigate]);
+
   return (
     <main
       className="relative flex flex-col overflow-hidden"
@@ -96,12 +102,13 @@ function BuyCoinsPage() {
       >
         <div className="flex w-full flex-wrap justify-between gap-5 max-md:max-w-full">
           <div className="flex items-center gap-5 whitespace-nowrap rounded-[100px] bg-zinc-50 pr-10 text-xl font-semibold text-neutral-900">
-            <img
+            {/* <img
               loading="lazy"
               src={user.image?.url || "/Icons/userProfileImg.png"}
               alt="User profile"
               className="my-auto aspect-square w-12 shrink-0 self-stretch rounded-full object-contain"
-            />
+            /> */}
+            <AvatarImg user={user} css="w-12 h-12" />
             <span className="my-auto self-stretch">
               {user?.firstName} {user?.lastName}
             </span>

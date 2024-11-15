@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { useUserManagement } from "../hooks/useUserManagement";
 import ProfileSection from "../components/userProfile/ProfileSection";
@@ -20,9 +21,9 @@ function Profile() {
     error,
   } = useUserManagement();
   const [profileData, setProfileData] = useState({
-    name: "Mark Obidiegwu",
-    email: "markobidiegwu@gmail.com",
-    phone: "+234 0812 345 6789",
+    // name: "Mark Obidiegwu",
+    // email: "markobidiegwu@gmail.com",
+    // phone: "+234 0812 345 6789",
     newName: "",
     newPhone: "",
     totalCoins: 0,
@@ -550,3 +551,24 @@ function Profile() {
 }
 
 export default Profile;
+
+export const AvatarImg = ({ user, style, css }) => {
+  return (
+    <div
+      className={`relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-cyan-950 bg-gray-100 dark:bg-gray-600 ${
+        css || ""
+      }`}
+      style={style || null}
+    >
+      <span
+        className={`font-medium text-gray-600 dark:text-gray-300 ${
+          style ? "text-7xl font-bold" : ""
+        } uppercase`}
+      >
+        {user?.firstName?.slice(0, 1) || ""}
+        {""}
+        {user?.lastName?.slice(0, 1) || ""}
+      </span>
+    </div>
+  );
+};

@@ -5,7 +5,7 @@ function CoinPackage({ price, coins, onBuyNow }) {
   return (
     <div className="mt-7 flex flex-wrap justify-between gap-2 rounded-md bg-zinc-50 px-10 py-3 shadow-sm max-md:max-w-full max-md:px-5">
       <div className="my-auto text-2xl font-semibold text-neutral-900">
-        ₦{numberWithCommas(Number(price || 0).toFixed(2))} to get{" "}
+        ₦{numberWithCommas(Number(price || 0).toFixed(0))} to get{" "}
         {numberWithCommas(Number(coins || 0).toFixed(0))} Coins
       </div>
       <button

@@ -1,7 +1,10 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import useAuthStore from "../../../data/stores/authStore";
 
 function Hero() {
+  let { isAuth } = useAuthStore();
+
   return (
     <>
       <section className="relative mx-auto h-fit w-[90%] text-white">
@@ -20,10 +23,10 @@ function Hero() {
           </div>
 
           <Link
-            to="/sign-up"
+            to={isAuth ? "/practice-subject" : "/sign-up"}
             className="my-6 hidden h-fit w-fit rounded-[20px] bg-white px-9 py-4 font-Poppins text-xl font-semibold text-teal-700 no-underline transition-colors hover:bg-teal-100 md:block"
           >
-            GET STARTED
+            {isAuth ? "DAILY TEST" : "GET STARTED"}
           </Link>
 
           <div className="hidden items-center gap-3 md:inline-flex">
