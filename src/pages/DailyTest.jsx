@@ -47,6 +47,7 @@ function DailyTest() {
   useEffect(() => {
     if (!state) navigate("/");
     if (state) handleSubmit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, navigate]);
 
   // Scroll event listener

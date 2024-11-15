@@ -8,6 +8,7 @@ import { apiCall } from "../../data/useFetcher";
 import { toast } from "react-toastify";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import Countdown from "react-countdown";
 
 export const createMarkup = (html) => {
   return {
@@ -45,7 +46,30 @@ const MediaContent = ({ type, content, className = "", isOption = false }) => {
   }
 };
 
-const QuestionCard = ({ questions: mainQuestions, type }) => {
+const QuestionCard = ({ questions: mainQuestions, type, duration: timer }) => {
+  const [k] = useState(null),
+    [duration] = useState(timer),
+    [timeup, setTimeup] = useState(null);
+
+  return (
+    <div className="relative mx-auto mb-4 mt-2 w-full max-w-xl overflow-hidden rounded-xl bg-[#015758] p-4 pt-8 shadow-md md:max-w-3xl md:p-8 lg:max-w-5xl">
+      <MainTimer
+        duration={duration}
+        handleNext={() => {
+          setTimeup(true);
+        }}
+        k={k}
+      />
+      <QuestionInnerCard
+        mainQuestions={mainQuestions}
+        type={type}
+        timeup={timeup}
+      />
+    </div>
+  );
+};
+
+export const QuestionInnerCard = ({ mainQuestions, type, timeup }) => {
   const [questions] = useState(
     mainQuestions || [
       {
@@ -238,8 +262,13 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
 
   const currentQuestion = questions[currentPage - 1];
 
+  useEffect(() => {
+    if (timeup) handleMainSubmit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeup]);
+
   return (
-    <div className="mx-auto mb-4 mt-2 w-full max-w-xl overflow-hidden rounded-xl bg-[#015758] p-4 pt-8 shadow-md md:max-w-3xl md:p-8 lg:max-w-5xl">
+    <>
       <div className="mb-6 flex justify-center">
         <div className="rounded-[20px] bg-[#369D9E] px-3 py-2 text-sm text-white md:px-5 md:text-base">
           Question {currentPage}/{questions.length}
@@ -272,7 +301,9 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
           <div
             key={option?._id || index}
             className="flex items-stretch"
-            onClick={() => handleOptionSelect(option)}
+            onClick={() => {
+              if (!timeup) handleOptionSelect(option);
+            }}
           >
             <div
               className={`flex w-full -skew-x-12 transform cursor-pointer overflow-hidden rounded-[3px] border-2 border-white transition-all duration-300 hover:shadow-lg ${
@@ -371,8 +402,55 @@ const QuestionCard = ({ questions: mainQuestions, type }) => {
           </div>
         </ModalContainer>
       )}
-    </div>
+    </>
   );
 };
 
 export default QuestionCard;
+
+const Completionist = () => <small>Time up!</small>;
+const Renderer = ({ hours, minutes, seconds, completed, handleNext }) => {
+  useEffect(() => {
+    if (completed) {
+      handleNext();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [completed]);
+
+  if (completed) {
+    // Render a completed state
+    return <Completionist />;
+  } else {
+    // Render a countdown
+    return (
+      <small>
+        {hours}h:{minutes}m:{seconds}s
+      </small>
+    );
+  }
+};
+
+export const MainTimer = ({ duration, handleNext, k }) => {
+  return (
+    <>
+      {duration && (
+        <div
+          style={{
+            boxShadow:
+              "0px 28.341px 56.682px 0px rgba(10, 24, 33, 0.24), 0px 8.817px 8.817px 0px #369D9E inset, 0px -8.817px 8.817px 0px #369D9E inset",
+            background: "linear-gradient(180deg, #369D9E 0%, #369D9E 100%)",
+          }}
+          className="right-3 mb-5 flex h-10 justify-center rounded-xl px-4 lg:absolute lg:top-6 lg:mb-0"
+        >
+          <div className="flex h-full items-center justify-center text-xl font-bold capitalize text-white lg:w-full">
+            <Countdown
+              key={k}
+              date={moment().add(duration, "minutes")}
+              renderer={(da) => <Renderer {...da} handleNext={handleNext} />}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
