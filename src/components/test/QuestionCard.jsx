@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
 import Button, { ModalContainer } from "../auth/Button";
 import useErrorStore from "../../data/stores/errorStore";
@@ -149,7 +151,7 @@ export const QuestionInnerCard = ({ mainQuestions, type, timeup }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [answerArr, setAnswerArr] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState(0);
+  // const [timer, setTimer] = useState(0);
 
   const initTime = new Date();
   const { returnErrors } = useErrorStore();
@@ -219,7 +221,6 @@ export const QuestionInnerCard = ({ mainQuestions, type, timeup }) => {
     setLoading(false);
   };
 
-
   const handleNext = useCallback(() => {
     if (isSelected) {
       const currentQuestion = questions?.[currentPage - 1];
@@ -253,22 +254,29 @@ export const QuestionInnerCard = ({ mainQuestions, type, timeup }) => {
     }
   }, [mainQuestions]);
 
+  // useEffect(() => {
+  //   let intervalId;
+
+  //   if (isSelected && questions?.length !== currentPage) {
+  //     intervalId = setInterval(() => {
+  //       setTimer((prevTimer) => prevTimer + 1);
+  //     }, 1000);
+  //   } else {
+  //     clearInterval(intervalId);
+  //   }
+
+  //   return () => clearInterval(intervalId);
+  // }, [isSelected, currentPage, questions]);
+
   useEffect(() => {
-    let intervalId;
-
     if (isSelected && questions?.length !== currentPage) {
-      intervalId = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1);
-      }, 1000);
-    } else {
-      clearInterval(intervalId);
+      const timer = setTimeout(() => handleNext(), 1000);
+      return () => clearTimeout(timer);
     }
-
-    return () => clearInterval(intervalId);
-  }, [isSelected, currentPage, questions]);
+  }, [isSelected, handleNext, currentPage, questions]);
 
   const currentQuestion = questions[currentPage - 1];
-  const formattedTime = moment.utc(timer * 1000).format("mm:ss");
+  // const formattedTime = moment.utc(timer * 1000).format("mm:ss");
 
   useEffect(() => {
     if (timeup) handleMainSubmit();
@@ -357,7 +365,6 @@ export const QuestionInnerCard = ({ mainQuestions, type, timeup }) => {
         ))}
       </div>
 
-
       <div className="mt-8 flex items-center justify-between">
         {currentPage > 1 && (
           <Button
@@ -367,8 +374,8 @@ export const QuestionInnerCard = ({ mainQuestions, type, timeup }) => {
             label="Previous"
           />
         )}
-        <div className="flex items-center gap-4">
-          <span className="text-white">{formattedTime}</span>
+        <div className="ms-auto flex items-center gap-4">
+          {/* <span className="text-white">{formattedTime}</span> */}
           <Button
             onClick={handleNext}
             disabled={!isSelected || loading}
