@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const NavItems = [
   { label: "HOME", component: Link, to: "/" },
-  { label: "PRACTICE", component: Link, to: "/select-exam" },
+  { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
   { label: "DAILY TEST", component: Link, to: "/practice-subject" },
   { label: "LEADER BOARD", component: Link, to: "/leader-board" },
   { label: "PRICING", component: Link, to: "/pricing" },

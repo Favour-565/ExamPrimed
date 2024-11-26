@@ -169,7 +169,7 @@ const MobileHeader = () => {
 const MobileMenus = ({ isMenuOpen }) => {
   const navLinks = [
     { label: "HOME", component: Link, to: "/" },
-    { label: "PRACTICE", component: Link, to: "/select-exam" },
+    { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
     { label: "DAILY TEST", component: Link, to: "/practice-subject" },
     { label: "LEADER BOARD", component: Link, to: "/leader-board" },
     { label: "PRICING", component: Link, to: "/pricing" },
@@ -180,6 +180,7 @@ const MobileMenus = ({ isMenuOpen }) => {
     { label: "FAQs", component: Link, to: "/faqs" },
     { label: "POLICY", component: Link, to: "/policy" },
     { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
+    { label: "Logout", component: Link, to: "/" },
   ];
   return (
     <>
