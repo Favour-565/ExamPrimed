@@ -53,11 +53,12 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
   };
 
   const getLogoSource = () => {
-    if (isAwardOrProfile) {
-      return "images/colored-logo.svg";
-    }
-    return `images/${!isScrolled ? "white-logo.svg" : "colored-logo.svg"}`;
-  };
+      if (isAwardOrProfile) {
+        return "images/colored-logo.svg";
+      }
+      return `images/${!isScrolled ? "white-logo.svg" : "colored-logo.svg"}`;
+    },
+    { isAuth } = useAuthStore();
 
   return (
     <header
@@ -71,15 +72,31 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
         </Link>
 
         <ul className="hidden items-center gap-5 lg:flex">
-          {NavItems.map((item, label) => (
-            <NavItem
-              key={label}
-              item={{
-                ...item,
-                className: isAwardOrProfile ? "text-[#008E90]" : item.className,
-              }}
-            />
-          ))}
+          {NavItems.map((item, label) =>
+            item?.label === "Logout" ? (
+              isAuth ? (
+                <NavItem
+                  key={label}
+                  item={{
+                    ...item,
+                    className: isAwardOrProfile
+                      ? "text-[#008E90]"
+                      : item.className,
+                  }}
+                />
+              ) : null
+            ) : (
+              <NavItem
+                key={label}
+                item={{
+                  ...item,
+                  className: isAwardOrProfile
+                    ? "text-[#008E90]"
+                    : item.className,
+                }}
+              />
+            ),
+          )}
         </ul>
 
         <div className="hidden lg:block">
@@ -165,7 +182,8 @@ const MobileHeader = () => {
 };
 
 const MobileMenus = ({ isMenuOpen }) => {
-  const navLinks = [
+  const { logout, isAuth } = useAuthStore(),
+    navLinks = [
       { label: "HOME", component: Link, to: "/" },
       { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
       { label: "DAILY TEST", component: Link, to: "/practice-subject" },
@@ -177,9 +195,8 @@ const MobileMenus = ({ isMenuOpen }) => {
       { label: "FAQs", component: Link, to: "/faqs" },
       { label: "POLICY", component: Link, to: "/policy" },
       { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
-      { label: "LOGOUT", component: Link, to: "/" },
-    ],
-    { logout } = useAuthStore();
+      isAuth ? { label: "LOGOUT", component: Link, to: "/" } : null,
+    ];
 
   return (
     <>
@@ -189,19 +206,21 @@ const MobileMenus = ({ isMenuOpen }) => {
         }`}
       >
         <ul className="flex h-full w-full flex-col items-start gap-6 overflow-scroll">
-          {navLinks.map((item) => (
-            <Link
-              onClick={() => {
-                if (item?.label === "LOGOUT") {
-                  logout();
-                }
-              }}
-              to={item.to}
-              key={item.label}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navLinks
+            ?.filter((it) => it)
+            .map((item) => (
+              <Link
+                onClick={() => {
+                  if (item?.label === "LOGOUT") {
+                    logout();
+                  }
+                }}
+                to={item.to}
+                key={item.label}
+              >
+                {item.label}
+              </Link>
+            ))}
         </ul>
       </div>
     </>
