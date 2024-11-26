@@ -1,5 +1,4 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavItems = [
   { label: "HOME", component: Link, to: "/" },
@@ -23,8 +22,12 @@ const NavItems = [
       { label: "FAQ", component: Link, to: "/faqs" },
       { label: "Contact Us", component: Link, to: "/contact-us" },
       { label: "Instructions", component: Link, to: "/instructions" },
-      { label: "Terms&Conditions", component: Link, to: "/terms-and-conditions" },
-      { label: "LOGOUT", component: Link, to: "/" },
+      {
+        label: "Terms&Conditions",
+        component: Link,
+        to: "/terms-and-conditions",
+      },
+      { label: "Logout", component: Link, to: "/" },
     ],
   },
 ];
