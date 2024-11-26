@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../../data/stores/authStore";
 
 const NavItem = ({ item }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false),
+    { logout } = useAuthStore();
 
   if (typeof item === "object" && item !== null) {
     if (item.hasDropdown) {
@@ -34,6 +37,11 @@ const NavItem = ({ item }) => {
                 {item.dropdownItems &&
                   item.dropdownItems.map((dropdownItem, index) => (
                     <Link
+                      onClick={() => {
+                        if (dropdownItem?.label === "Logout") {
+                          logout();
+                        }
+                      }}
                       key={index}
                       to={dropdownItem.to}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

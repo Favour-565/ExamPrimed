@@ -6,6 +6,7 @@ import AccountButton from "./home/AccountButton";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useAuthStore from "../../data/stores/authStore";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -75,9 +76,7 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
               key={label}
               item={{
                 ...item,
-                className: isAwardOrProfile
-                  ? "text-[#008E90]"
-                  : item.className,
+                className: isAwardOrProfile ? "text-[#008E90]" : item.className,
               }}
             />
           ))}
@@ -90,7 +89,6 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
     </header>
   );
 };
-
 
 const MobileHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -168,19 +166,21 @@ const MobileHeader = () => {
 
 const MobileMenus = ({ isMenuOpen }) => {
   const navLinks = [
-    { label: "HOME", component: Link, to: "/" },
-    { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
-    { label: "DAILY TEST", component: Link, to: "/practice-subject" },
-    { label: "LEADER BOARD", component: Link, to: "/leader-board" },
-    { label: "BUY COINS", component: Link, to: "/buy-coins" },
-    { label: "CONTACT US", component: Link, to: "/contact-us" },
-    { label: "INSTRUCTIONS", component: Link, to: "/instructions" },
-    { label: "ABOUT US", component: Link, to: "/about-us" },
-    { label: "FAQs", component: Link, to: "/faqs" },
-    { label: "POLICY", component: Link, to: "/policy" },
-    { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
-    { label: "LOGOUT", component: Link, to: "/" },
-  ];
+      { label: "HOME", component: Link, to: "/" },
+      { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
+      { label: "DAILY TEST", component: Link, to: "/practice-subject" },
+      { label: "LEADER BOARD", component: Link, to: "/leader-board" },
+      { label: "BUY COINS", component: Link, to: "/buy-coins" },
+      { label: "CONTACT US", component: Link, to: "/contact-us" },
+      { label: "INSTRUCTIONS", component: Link, to: "/instructions" },
+      { label: "ABOUT US", component: Link, to: "/about-us" },
+      { label: "FAQs", component: Link, to: "/faqs" },
+      { label: "POLICY", component: Link, to: "/policy" },
+      { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
+      { label: "LOGOUT", component: Link, to: "/" },
+    ],
+    { logout } = useAuthStore();
+
   return (
     <>
       <div
@@ -190,7 +190,15 @@ const MobileMenus = ({ isMenuOpen }) => {
       >
         <ul className="flex h-full w-full flex-col items-start gap-6 overflow-scroll">
           {navLinks.map((item) => (
-            <Link to={item.to} key={item.label}>
+            <Link
+              onClick={() => {
+                if (item?.label === "LOGOUT") {
+                  logout();
+                }
+              }}
+              to={item.to}
+              key={item.label}
+            >
               {item.label}
             </Link>
           ))}
