@@ -138,13 +138,13 @@ function PaymentMode() {
     if (platform) {
       if (platform === "mtn") {
         let link =
-          "http://ng-app.com/MARTAD/GET2KNOW-24-Yes-23410220000028099-web?trxId=xxx";
+          "http://ng-app.com/Martad/exams-primed-landing-en-doi-web?origin_banner=1&trxId=URLPURCHASE&trfsrc=WEBPAY";
         if (state?.item?.plan_id === "weekly")
           link =
-            "http://ng-app.com/MARTAD/GET2KNOW-168-Yes-23410220000028100-web?trxId=xxx";
+            "http://ng-app.com/Martad/exams-primed-landing-en-doi-web?origin_banner=2&trxId=URLPURCHASE&trfsrc=WEBPAY";
         if (state?.item?.plan_id === "monthly")
           link =
-            "http://ng-app.com/MARTAD/GET2KNOW-720-Yes-23410220000028101-web?trxId=xxx";
+            "http://ng-app.com/Martad/exams-primed-landing-en-doi-web?origin_banner=3&trxId=URLPURCHASE&trfsrc=WEBPAY";
 
         window.open(link, "_blank");
         setPlatform("");

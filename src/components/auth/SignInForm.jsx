@@ -77,7 +77,7 @@ function SignInForm() {
       if (response) {
         login(response);
         loadUser();
-        navigate("/profile");
+        navigate("/select-exam");
         return;
       }
       setLoading(false);
