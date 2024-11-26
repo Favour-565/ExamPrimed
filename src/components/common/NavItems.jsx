@@ -24,7 +24,7 @@ const NavItems = [
       { label: "Contact Us", component: Link, to: "/contact-us" },
       { label: "Instructions", component: Link, to: "/instructions" },
       { label: "Terms&Conditions", component: Link, to: "/terms-and-conditions" },
-      { label: "Logout", component: Link, to: "/" },
+      { label: "LOGOUT", component: Link, to: "/" },
     ],
   },
 ];

@@ -172,7 +172,6 @@ const MobileMenus = ({ isMenuOpen }) => {
     { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
     { label: "DAILY TEST", component: Link, to: "/practice-subject" },
     { label: "LEADER BOARD", component: Link, to: "/leader-board" },
-    { label: "PRICING", component: Link, to: "/pricing" },
     { label: "BUY COINS", component: Link, to: "/buy-coins" },
     { label: "CONTACT US", component: Link, to: "/contact-us" },
     { label: "INSTRUCTIONS", component: Link, to: "/instructions" },
@@ -180,7 +179,7 @@ const MobileMenus = ({ isMenuOpen }) => {
     { label: "FAQs", component: Link, to: "/faqs" },
     { label: "POLICY", component: Link, to: "/policy" },
     { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
-    { label: "Logout", component: Link, to: "/" },
+    { label: "LOGOUT", component: Link, to: "/" },
   ];
   return (
     <>
