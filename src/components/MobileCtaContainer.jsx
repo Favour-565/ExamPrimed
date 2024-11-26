@@ -1,15 +1,18 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import useAuthStore from "../data/stores/authStore";
 
 export default function MobileCtaContainer() {
+  const { isAuth } = useAuthStore();
+
   return (
     <>
       <div className="absolute inset-x-0 -top-8 flex flex-col items-center gap-3 md:hidden">
         <Link
-          to="/sign-up"
+          to={isAuth ? "/select-exam" : "/sign-up"}
           className="h-fit max-w-[180px] rounded-[14px] border-[1px] border-[#FFFF] bg-[#008E90] px-10 py-5 font-Poppins text-sm font-semibold text-white no-underline"
         >
-          GET STARTED
+          {isAuth ? "PRACTICE" : "GET STARTED"}
         </Link>
 
         <p className="font-Poppins text-sm font-normal text-[#0E0E0E]">
