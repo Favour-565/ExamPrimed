@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuthStore from "../../data/stores/authStore";
+import { useLogout } from "../../data/useFetcher";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -182,7 +183,8 @@ const MobileHeader = () => {
 };
 
 const MobileMenus = ({ isMenuOpen }) => {
-  const { logout, isAuth } = useAuthStore(),
+  const { isAuth } = useAuthStore(),
+    { handleLogout } = useLogout(),
     navLinks = [
       { label: "HOME", component: Link, to: "/" },
       { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
@@ -212,7 +214,7 @@ const MobileMenus = ({ isMenuOpen }) => {
               <Link
                 onClick={() => {
                   if (item?.label === "LOGOUT") {
-                    logout();
+                    handleLogout();
                   }
                 }}
                 to={item.to}

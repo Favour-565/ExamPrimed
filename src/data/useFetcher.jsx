@@ -10,6 +10,7 @@ import {
   useSubjectStore,
   useYearStore,
 } from "./stores/loggerStore";
+import { useNavigate } from "react-router-dom";
 
 export const apiCall = async ({
   type,
@@ -168,4 +169,15 @@ const useGenFetcher = () => {
   return { loadUser };
 };
 
+export const useLogout = () => {
+  let { logout } = useLogout(),
+    navigate = useNavigate(),
+    handleLogout = () => {
+      logout();
+      toast.info("Logout Successfully");
+      navigate("/");
+    };
+
+  return { handleLogout };
+};
 export default useGenFetcher;
