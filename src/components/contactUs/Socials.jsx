@@ -3,7 +3,7 @@ import React from 'react';
 function Socials() {
   const handleSocialClick = (platform) => {
     const urls = {
-      twitter: 'https://twitter.com/Exam_Prime',
+      twitter: 'https://x.com/ExamsPrimed',
       
     };
     window.open(urls[platform], '_blank');

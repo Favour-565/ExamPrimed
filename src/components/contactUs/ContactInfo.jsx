@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Socials from './Socials';
 
@@ -12,7 +11,11 @@ function ContactInfo() {
   };
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/0812345678', '_blank');
+    window.open('https://wa.me/07043303000', '_blank');
+  };
+
+  const handleFacebookClick = () => {
+    window.open('https://web.facebook.com/profile.php?id=61569332769702', '_blank');
   };
 
   return (
@@ -34,7 +37,7 @@ function ContactInfo() {
         </button>
 
         <div 
-          onClick={() => handlePhoneClick('+2348092933330')}
+          onClick={() => handlePhoneClick('+2347043303000')}
           className="flex gap-5 justify-center items-center cursor-pointer w-full px-8 py-3 mt-6 border-2 border-teal-700 rounded-full"
         >
           <img 
@@ -44,7 +47,7 @@ function ContactInfo() {
             className="w-6 h-6"
           />
           <div>
-            +234 809 293 3330 
+            +234 7043303000
           </div>
         </div>
 
@@ -58,10 +61,13 @@ function ContactInfo() {
             alt="WhatsApp icon" 
             className="w-6 h-6"
           />
-          <span>0812345678</span>
+          <span>07043303000</span>
         </div>
 
-        <div className="flex gap-5 justify-center items-center w-full px-8 py-3 mt-5 border-2 border-teal-700 rounded-full">
+        <div 
+          onClick={handleFacebookClick}
+          className="flex gap-5 justify-center items-center cursor-pointer w-full px-8 py-3 mt-5 border-2 border-teal-700 rounded-full"
+        >
           <img 
             loading="lazy" 
             src="/vectors/facebook.png" 
