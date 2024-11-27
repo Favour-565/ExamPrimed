@@ -4,7 +4,7 @@ import Footer from '../components/common/Footer';
 import Content from '../components/terms-and-conditions/Content';
 
 
-function Conditions() {
+function TermsConditions() {
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
       <div className="relative flex flex-col w-full font-semibold text-white min-h-[240px]">
@@ -34,4 +34,4 @@ function Conditions() {
   );
 }
 
-export default Conditions;
+export default TermsConditions;

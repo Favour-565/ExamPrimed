@@ -200,7 +200,7 @@ const MobileMenus = ({ isMenuOpen, setIsMenuOpen }) => {
       { label: "ABOUT US", component: Link, to: "/about-us" },
       { label: "FAQs", component: Link, to: "/faqs" },
       { label: "POLICY", component: Link, to: "/policy" },
-      { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
+      { label: "TERMS & CONDITIONS", component: Link, to: "/terms-and-conditions" },
       isAuth ? { label: "LOGOUT", component: Link, to: "/" } : null,
     ];
 

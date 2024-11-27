@@ -36,8 +36,9 @@ import useGenFetcher from "./data/useFetcher";
 import useErrorStore from "./data/stores/errorStore";
 import { ToastContainer, Zoom } from "react-toastify";
 import { ModalContainer } from "./components/auth/Button";
-import Conditions from "./pages/Conditions";
+
 import ReviewAnswers from "./pages/ReviewAnswers";
+import TermsConditions from "./pages/TermsConditions";
 
 SetDefaultHeaders();
 
@@ -67,7 +68,7 @@ const routesConfig = [
   },
   {
     path: "/terms-and-conditions",
-    element: Conditions,
+    element: TermsConditions,
     meta: { title: "", description: "" },
   },
 
