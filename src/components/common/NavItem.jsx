@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../../data/stores/authStore";
+import { useLogout } from "../../data/useFetcher";
 
 const NavItem = ({ item }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false),
-    { logout, isAuth } = useAuthStore();
+    { isAuth } = useAuthStore(),
+    { handleLogout } = useLogout();
 
   if (typeof item === "object" && item !== null) {
     if (item.hasDropdown) {
@@ -41,8 +43,9 @@ const NavItem = ({ item }) => {
                         <Link
                           onClick={() => {
                             if (dropdownItem?.label === "Logout") {
-                              logout();
+                              setIsDropdownOpen(!isDropdownOpen);
                             }
+                            handleLogout();
                           }}
                           key={index}
                           to={dropdownItem.to}
@@ -55,8 +58,9 @@ const NavItem = ({ item }) => {
                       <Link
                         onClick={() => {
                           if (dropdownItem?.label === "Logout") {
-                            logout();
+                            setIsDropdownOpen(!isDropdownOpen);
                           }
+                          handleLogout();
                         }}
                         key={index}
                         to={dropdownItem.to}
