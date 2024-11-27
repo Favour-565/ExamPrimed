@@ -5,7 +5,7 @@ import { AvatarImg } from "../../pages/Profile";
 function LeaderBoardItem({ name, points, rank, user }) {
   return (
     <article className="relative mt-5 flex w-full flex-wrap justify-between gap-5 rounded-md bg-[#015758] px-10 py-1 shadow-[0px_4px_6px_rgba(0,0,0,0.25)] max-md:max-w-full max-md:px-5">
-      <div className="flex gap-10 whitespace-nowrap text-2xl font-semibold text-white">
+      <div className="flex gap-5 whitespace-nowrap font-semibold text-white md:gap-10 md:text-2xl">
         {/* <img
           loading="lazy"
           src={user?.user?.image?.url || avatar}
