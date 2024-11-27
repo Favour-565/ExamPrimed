@@ -27,7 +27,7 @@ function Hero() {
           to={isAuth ? "/select-exam" : "/sign-up"}
           className="my-6 hidden h-fit w-fit rounded-[20px] bg-white px-9 py-4 font-Poppins text-xl font-semibold text-teal-700 no-underline transition-colors hover:bg-teal-100 md:block"
         >
-          {isAuth ? "PRACTICE" : "GET STARTED"}
+          {isAuth ? "PRACTICE EXAMS" : "GET STARTED"}
         </Link>
 
         <div className="hidden items-center gap-3 md:inline-flex">

@@ -10,13 +10,13 @@ import useAuthStore from "../data/stores/authStore";
 import { useNavigate } from "react-router-dom";
 import useErrorStore from "../data/stores/errorStore";
 import { toast } from "react-toastify";
-import { apiCall } from "../data/useFetcher";
+import { apiCall, useLogout } from "../data/useFetcher";
 import Button from "../components/auth/Button";
 
 function Profile() {
   const {
     // updateUserProfile,
-    logout: logOutMock,
+    // logout: logOutMock,
     isLoading,
     error,
   } = useUserManagement();
@@ -163,8 +163,8 @@ function Profile() {
   //   }
   // };
 
-  const { logout, isAuth, user, getCoinHistory, coinHistory, setUser } =
-      useAuthStore(),
+  const { isAuth, user, getCoinHistory, coinHistory, setUser } = useAuthStore(),
+    { handleLogout: importLogout } = useLogout(),
     navigate = useNavigate(),
     [loading, setLoading] = useState(null),
     { returnErrors } = useErrorStore(),
@@ -250,9 +250,8 @@ function Profile() {
 
   const handleLogout = async () => {
     try {
-      logout();
-      await logOutMock();
-      navigate("/");
+      // await logOutMock();
+      importLogout();
     } catch (err) {
       // setUpdateStatus({
       //   success: false,

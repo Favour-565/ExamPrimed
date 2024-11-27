@@ -12,7 +12,7 @@ export default function MobileCtaContainer() {
           to={isAuth ? "/select-exam" : "/sign-up"}
           className="h-fit max-w-[180px] rounded-[14px] border-[1px] border-[#FFFF] bg-[#008E90] px-10 py-5 font-Poppins text-sm font-semibold text-white no-underline"
         >
-          {isAuth ? "PRACTICE" : "GET STARTED"}
+          {isAuth ? "PRACTICE EXAMS" : "GET STARTED"}
         </Link>
 
         <p className="font-Poppins text-sm font-normal text-[#0E0E0E]">

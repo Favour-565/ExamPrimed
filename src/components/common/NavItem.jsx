@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../../data/stores/authStore";
+import { useLogout } from "../../data/useFetcher";
 
 const NavItem = ({ item }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false),
+    { isAuth } = useAuthStore(),
+    { handleLogout } = useLogout();
 
   if (typeof item === "object" && item !== null) {
     if (item.hasDropdown) {
@@ -32,15 +37,39 @@ const NavItem = ({ item }) => {
             <div className="absolute left-0 mt-2 w-48 rounded-md bg-white shadow-xl ring-1 ring-black ring-opacity-5">
               <div className="py-1">
                 {item.dropdownItems &&
-                  item.dropdownItems.map((dropdownItem, index) => (
-                    <Link
-                      key={index}
-                      to={dropdownItem.to}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      {dropdownItem.label}
-                    </Link>
-                  ))}
+                  item.dropdownItems.map((dropdownItem, index) =>
+                    dropdownItem?.label === "Logout" ? (
+                      isAuth ? (
+                        <Link
+                          onClick={() => {
+                            if (dropdownItem?.label === "Logout") {
+                              setIsDropdownOpen(!isDropdownOpen);
+                            }
+                            handleLogout();
+                          }}
+                          key={index}
+                          to={dropdownItem.to}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {dropdownItem.label}
+                        </Link>
+                      ) : null
+                    ) : (
+                      <Link
+                        onClick={() => {
+                          if (dropdownItem?.label === "Logout") {
+                            setIsDropdownOpen(!isDropdownOpen);
+                          }
+                          handleLogout();
+                        }}
+                        key={index}
+                        to={dropdownItem.to}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        {dropdownItem.label}
+                      </Link>
+                    ),
+                  )}
               </div>
             </div>
           )}

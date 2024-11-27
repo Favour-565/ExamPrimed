@@ -4,8 +4,10 @@ import NavItems from "./NavItems";
 import NavItem from "./NavItem";
 import AccountButton from "./home/AccountButton";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useAuthStore from "../../data/stores/authStore";
+import { useLogout } from "../../data/useFetcher";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,11 +54,12 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
   };
 
   const getLogoSource = () => {
-    if (isAwardOrProfile) {
-      return "images/colored-logo.svg";
-    }
-    return `images/${!isScrolled ? "white-logo.svg" : "colored-logo.svg"}`;
-  };
+      if (isAwardOrProfile) {
+        return "images/colored-logo.svg";
+      }
+      return `images/${!isScrolled ? "white-logo.svg" : "colored-logo.svg"}`;
+    },
+    { isAuth } = useAuthStore();
 
   return (
     <header
@@ -70,17 +73,31 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
         </Link>
 
         <ul className="hidden items-center gap-5 lg:flex">
-          {NavItems.map((item, label) => (
-            <NavItem
-              key={label}
-              item={{
-                ...item,
-                className: isAwardOrProfile
-                  ? "text-[#008E90]"
-                  : item.className,
-              }}
-            />
-          ))}
+          {NavItems.map((item, label) =>
+            item?.label === "Logout" ? (
+              isAuth ? (
+                <NavItem
+                  key={label}
+                  item={{
+                    ...item,
+                    className: isAwardOrProfile
+                      ? "text-[#008E90]"
+                      : item.className,
+                  }}
+                />
+              ) : null
+            ) : (
+              <NavItem
+                key={label}
+                item={{
+                  ...item,
+                  className: isAwardOrProfile
+                    ? "text-[#008E90]"
+                    : item.className,
+                }}
+              />
+            ),
+          )}
         </ul>
 
         <div className="hidden lg:block">
@@ -91,9 +108,10 @@ const DesktopHeader = ({ isScrolled, isAwardOrProfile }) => {
   );
 };
 
-
 const MobileHeader = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false),
+    { isAuth } = useAuthStore(),
+    navigate = useNavigate();
 
   return (
     <>
@@ -106,8 +124,8 @@ const MobileHeader = () => {
 
         {!isMenuOpen ? (
           <div className="inline-flex items-center gap-5">
-            <Link to="/profile">
-              <span>
+           
+              <span onClick={() => navigate(isAuth ?"/profile":"/login")}>
                 <svg
                   width="20"
                   height="20"
@@ -123,7 +141,7 @@ const MobileHeader = () => {
                   />
                 </svg>
               </span>
-            </Link>
+           
 
             <div onClick={() => setIsMenuOpen(true)}>
               <span>
@@ -163,26 +181,29 @@ const MobileHeader = () => {
         )}
       </nav>
 
-      {isMenuOpen && <MobileMenus />}
+      {isMenuOpen && <MobileMenus setIsMenuOpen={setIsMenuOpen} />}
     </>
   );
 };
 
-const MobileMenus = ({ isMenuOpen }) => {
-  const navLinks = [
-    { label: "HOME", component: Link, to: "/" },
-    { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
-    { label: "DAILY TEST", component: Link, to: "/practice-subject" },
-    { label: "LEADER BOARD", component: Link, to: "/leader-board" },
-    { label: "BUY COINS", component: Link, to: "/buy-coins" },
-    { label: "CONTACT US", component: Link, to: "/contact-us" },
-    { label: "INSTRUCTIONS", component: Link, to: "/instructions" },
-    { label: "ABOUT US", component: Link, to: "/about-us" },
-    { label: "FAQs", component: Link, to: "/faqs" },
-    { label: "POLICY", component: Link, to: "/policy" },
-    { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
-    { label: "LOGOUT", component: Link, to: "/" },
-  ];
+const MobileMenus = ({ isMenuOpen, setIsMenuOpen }) => {
+  const { isAuth } = useAuthStore(),
+    { handleLogout } = useLogout(),
+    navLinks = [
+      { label: "HOME", component: Link, to: "/" },
+      { label: "PRACTICE EXAMS", component: Link, to: "/select-exam" },
+      { label: "DAILY TEST", component: Link, to: "/practice-subject" },
+      { label: "LEADER BOARD", component: Link, to: "/leader-board" },
+      { label: "BUY COINS", component: Link, to: "/buy-coins" },
+      { label: "CONTACT US", component: Link, to: "/contact-us" },
+      { label: "INSTRUCTIONS", component: Link, to: "/instructions" },
+      { label: "ABOUT US", component: Link, to: "/about-us" },
+      { label: "FAQs", component: Link, to: "/faqs" },
+      { label: "POLICY", component: Link, to: "/policy" },
+      { label: "TERMS & CONDITIONS", component: Link, to: "/terms-conditions" },
+      isAuth ? { label: "LOGOUT", component: Link, to: "/" } : null,
+    ];
+
   return (
     <>
       <div
@@ -191,11 +212,22 @@ const MobileMenus = ({ isMenuOpen }) => {
         }`}
       >
         <ul className="flex h-full w-full flex-col items-start gap-6 overflow-scroll">
-          {navLinks.map((item) => (
-            <Link to={item.to} key={item.label}>
-              {item.label}
-            </Link>
-          ))}
+          {navLinks
+            ?.filter((it) => it)
+            .map((item) => (
+              <Link
+                onClick={() => {
+                  if (item?.label === "LOGOUT") {
+                    if (setIsMenuOpen) setIsMenuOpen(false);
+                    handleLogout();
+                  }
+                }}
+                to={item.to}
+                key={item.label}
+              >
+                {item.label}
+              </Link>
+            ))}
         </ul>
       </div>
     </>
