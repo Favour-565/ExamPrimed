@@ -124,8 +124,8 @@ const MobileHeader = () => {
 
         {!isMenuOpen ? (
           <div className="inline-flex items-center gap-5">
-            {isAuth && (
-              <span onClick={() => navigate("/profile")}>
+           
+              <span onClick={() => navigate(isAuth ?"/profile":"/login")}>
                 <svg
                   width="20"
                   height="20"
@@ -141,7 +141,7 @@ const MobileHeader = () => {
                   />
                 </svg>
               </span>
-            )}
+           
 
             <div onClick={() => setIsMenuOpen(true)}>
               <span>
