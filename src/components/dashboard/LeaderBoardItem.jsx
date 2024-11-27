@@ -12,8 +12,8 @@ function LeaderBoardItem({ name, points, rank, user }) {
           alt={`${user?.user?.lastName || name || ""}'s avatar`}
           className="aspect-square w-[60px] shrink-0 rounded-full object-contain"
         /> */}
-        <AvatarImg user={user?.user} css="w-[60px] h-[60px]" />
-        <div className="my-auto">
+        <AvatarImg user={user?.user} css="w-[60px] h-[60px] " />
+        <div className="my-auto text-xl">
           {name}
           {user?.user?.firstName} {user?.user?.lastName}
         </div>

@@ -120,6 +120,7 @@ const MobileHeader = () => {
           loading="lazy"
           src="/images/colored-logo.svg"
           alt="Exam primed Logo"
+          onClick={() => navigate("/")}
         />
 
         {!isMenuOpen ? (
