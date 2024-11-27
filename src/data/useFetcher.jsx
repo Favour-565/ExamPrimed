@@ -170,7 +170,7 @@ const useGenFetcher = () => {
 };
 
 export const useLogout = () => {
-  let { logout } = useLogout(),
+  let { logout } = useAuthStore(),
     navigate = useNavigate(),
     handleLogout = () => {
       logout();
@@ -180,4 +180,5 @@ export const useLogout = () => {
 
   return { handleLogout };
 };
+
 export default useGenFetcher;
