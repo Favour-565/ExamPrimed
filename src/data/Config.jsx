@@ -13,10 +13,12 @@ export const SetAuthToken = (token) => {
   }
 };
 
-// export const useURL = import.meta.env.DEV
-//   ? "http://localhost:9999"
-//   : import.meta.env.VITE_BASE_URL;
-export const useURL = import.meta.env.VITE_BASE_URL;
+export const useURL =
+  import.meta.env.DEV && import.meta.env.VITE_NODE_INTEGRATION
+    ? "http://localhost:9999"
+    : import.meta.env.VITE_BASE_URL;
+
+// export const useURL = import.meta.env.VITE_BASE_URL;
 
 export const SetDefaultHeaders = () => {
   axios.defaults.baseURL = useURL;

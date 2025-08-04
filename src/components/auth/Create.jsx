@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useURL } from "../../data/Config";
 
 const Create = () => {
   const navigate = useNavigate();
@@ -71,8 +72,8 @@ const Create = () => {
     setLoading(true);
     try {
       // Replace with your actual API call
-      const response = await fetch("/api/v1/user/set-password-request", {
-        method: "POST",
+      const response = await fetch(`${useURL}/api/v1/user/reset-password`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email }),
       });
@@ -99,13 +100,12 @@ const Create = () => {
     setLoading(true);
     try {
       // Replace with your actual API call
-      const response = await fetch("/api/v1/user/reset-password", {
+      const response = await fetch(`${useURL}/api/v1/user/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: formData.email,
-          token: formData.token,
-          newPassword: formData.newPassword,
+          otp: formData.token,
+          password: formData.newPassword,
         }),
       });
 
@@ -116,7 +116,7 @@ const Create = () => {
       }
 
       toast.success("Password successfully reset");
-      navigate("/reset-password");
+      navigate("/login");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -147,7 +147,7 @@ const Create = () => {
               <p className="text-sm text-red-500">{errors.email}</p>
             )}
           </div>
-          
+
           <button
             type="submit"
             disabled={loading}
@@ -166,6 +166,7 @@ const Create = () => {
                 value={formData.token}
                 onChange={handleInputChange}
                 placeholder="Enter reset token"
+                min={4}
                 className="w-full bg-transparent p-2.5 text-base text-black text-opacity-50 outline-none md:text-lg"
               />
             </div>
